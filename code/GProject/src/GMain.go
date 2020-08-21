@@ -11,3 +11,11 @@ func GManager()(*manager.GManagerO) {
 	return manager.GManager()
 }
 //===============================================
+func GConfig()(*manager.GConfigO) {
+	return manager.GConfig()
+}
+//===============================================
+func GSQLite()(*manager.GSQLiteO) {
+	return manager.GSQLite()
+}
+//===============================================
