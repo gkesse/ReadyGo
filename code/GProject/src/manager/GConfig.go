@@ -28,10 +28,10 @@ func GConfig() *GConfigO {
 }
 //===============================================
 func (obj *GConfigO) SetData(keyIn string, valueIn string) {
-	obj.m_dataMap[keyIn] = valueIn
+    obj.m_dataMap[keyIn] = valueIn
 }
 //===============================================
 func (obj *GConfigO) GetData(keyIn string) string {
-	return obj.m_dataMap[keyIn]
+    return obj.m_dataMap[keyIn]
 }
 //===============================================

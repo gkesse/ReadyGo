@@ -49,23 +49,23 @@ func (obj *GProcessO) run_ADMIN() {
 }
 //===============================================
 func (obj *GProcessO) run_INIT() {
-	fmt.Printf("\n")
-	fmt.Printf("GO_ADMIN !!!\n")
-	fmt.Printf("\t%-2s : %s\n", "-q", "quitter l'application")
-	fmt.Printf("\n")
+    fmt.Printf("\n")
+    fmt.Printf("GO_ADMIN !!!\n")
+    fmt.Printf("\t%-2s : %s\n", "-q", "quitter l'application")
+    fmt.Printf("\n")
     obj.G_STATE = "S_LOAD"
 }
 //===============================================
 func (obj *GProcessO) run_METHOD() {
-	fmt.Printf("GO_ADMIN :\n")
-	fmt.Printf("\t%-2s : %s\n", "1", "S_SQLITE")
-	fmt.Printf("\n")
+    fmt.Printf("GO_ADMIN :\n")
+    fmt.Printf("\t%-2s : %s\n", "1", "S_SQLITE")
+    fmt.Printf("\n")
     obj.G_STATE = "S_CHOICE"
 }
 //===============================================
 func (obj *GProcessO) run_CHOICE() {
     var lLast string = "1"
-	fmt.Printf("GO_ADMIN (%s) ? ", lLast)
+    fmt.Printf("GO_ADMIN (%s) ? ", lLast)
     lReader := bufio.NewReader(os.Stdin) ; lAnswer, _ := lReader.ReadString('\n')
     lAnswer = lAnswer[:len(lAnswer)-2]
     if lAnswer == "" { lAnswer = lLast }
@@ -75,7 +75,7 @@ func (obj *GProcessO) run_CHOICE() {
 }
 //===============================================
 func (obj *GProcessO) run_SQLITE() {
-    GSQLite().Run();
+    GSQLiteUi().Run();
     obj.G_STATE = "S_SAVE"
 }
 //===============================================
