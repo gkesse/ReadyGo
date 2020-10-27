@@ -5,6 +5,8 @@ import "fmt"
 import "sync"
 import "bufio"
 import "os"
+import "database/sql"
+import _ "github.com/mattn/go-sqlite3"
 //===============================================
 type GSQLiteUiO struct {
     G_STATE string
@@ -90,10 +92,17 @@ func (obj *GSQLiteUiO) run_CHOICE() {
 //===============================================
 func (obj *GSQLiteUiO) run_BUILDER() {
 	fmt.Printf("\n")
-    //lDb, lErr :=  sql.Open("sqlite3", "./foo.db")
-    lApp := GManager().GetData().app;
-    lApp.app_name = "ReadyGo";
-    GManager().ShowData()
+    lSqlite := GManager().GetData().sqlite
+    lDb, lErr :=  sql.Open("sqlite3", lSqlite.db_path)
+    if lErr != nil {
+        fmt.Printf("[error] GSQLiteUi : run_BUILDER : sql.Open\n")
+	}
+    lDb.Close()
+    lQuery := `
+    select name from sqlite_master 
+    where type='table';
+    `
+    _, lErr = lDb.Exec(lQuery)
     obj.G_STATE = "S_SAVE"
 }
 //===============================================
