@@ -10,10 +10,15 @@ type GManagerO struct {
 //===============================================
 type sGManager struct {
     app *sGApp
+    sqlite *sGSQLite
 }
 //===============================================
 type sGApp struct {
     app_name string
+}
+//===============================================
+type sGSQLite struct {
+    db_path string
 }
 //===============================================
 var m_GManagerLock = &sync.Mutex{}
@@ -44,6 +49,9 @@ func (obj *GManagerO) initObj() {
     // app
 	obj.m_mgr.app = &sGApp{}
 	obj.m_mgr.app.app_name = "ReadyAppp"
+    // sqlite
+	obj.m_mgr.sqlite = &sGSQLite{}
+	obj.m_mgr.sqlite.db_path = "data/sqlite/data.dat"
 }
 //===============================================
 func (obj *GManagerO) GetData() *sGManager {
@@ -51,8 +59,9 @@ func (obj *GManagerO) GetData() *sGManager {
 }
 //===============================================
 func (obj *GManagerO) ShowData() {
+    lWidth := -40
 	// app
-    fmt.Printf("### app :\n");
-    fmt.Printf("%*s : %s\n", -40, "obj.m_mgr.app.app_name", obj.m_mgr.app.app_name)
+    fmt.Printf("### app :\n")
+    fmt.Printf("%*s : %s\n", lWidth, "obj.m_mgr.app.app_name", obj.m_mgr.app.app_name)
 }
 //===============================================
