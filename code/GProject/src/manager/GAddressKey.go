@@ -70,13 +70,7 @@ func (obj *GAddressKey) SetContent(text string) {
 }
 //===============================================
 func (obj *GAddressKey) SlotItemClicked(ok bool) {
-    var lWidget widgets.QWidget_ITF
-    for lObj,_ := range obj.widgetId {
-        lSender := lObj.QObject_PTR().Sender().Pointer()
-        if lSender == nil {continue}
-        lWidget = lObj
-        break
-    }
+    lWidget := obj.GetSender(obj.widgetId)
     lWidgetId := obj.widgetId[lWidget]
     fmt.Printf("lWidgetId : %p : %s\n", lWidget, lWidgetId)
 }
