@@ -20,7 +20,7 @@ type GWidget_ITF interface {
 type GWidgetI interface {
     AddPage(widget widgets.QWidget_ITF)
     SetContent(text string)
-    SlotItemClick()
+    SlotItemClicked(ok bool)
 }
 //===============================================
 // constructor
@@ -51,5 +51,5 @@ func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
 //===============================================
 func (obj *GWidget) AddPage(widget widgets.QWidget_ITF) {}
 func (obj *GWidget) SetContent(text string) {}
-func (obj *GWidget) SlotItemClick() {}
+func (obj *GWidget) SlotItemClicked(ok bool) {}
 //===============================================
