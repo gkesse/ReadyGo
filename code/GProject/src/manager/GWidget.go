@@ -21,6 +21,7 @@ type GWidgetI interface {
     AddPage(widget widgets.QWidget_ITF)
     SetContent(text string)
     GetSender(widgetId map[widgets.QWidget_ITF]string) widgets.QWidget_ITF
+    ClearContent()
     SlotItemClicked(ok bool)
 }
 //===============================================
@@ -61,6 +62,7 @@ func (obj *GWidget) GetSender(widgetId map[widgets.QWidget_ITF]string) widgets.Q
 //===============================================
 func (obj *GWidget) AddPage(widget widgets.QWidget_ITF) {}
 func (obj *GWidget) SetContent(text string) {}
+func (obj *GWidget) ClearContent() {}
 //===============================================
 func (obj *GWidget) SlotItemClicked(ok bool) {}
 //===============================================

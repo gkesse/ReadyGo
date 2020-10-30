@@ -69,9 +69,20 @@ func (obj *GAddressKey) SetContent(text string) {
     obj.mainLayout.AddWidget(lSpacer, 1, 0)
 }
 //===============================================
+func (obj *GAddressKey) ClearContent() {
+    lCount := obj.mainLayout.Count()
+    for i := 0; i < lCount; i++ {
+        lItem := obj.mainLayout.TakeAt(0)
+        lWidget := lItem.Widget()
+        lWidget.DeleteLater()
+        lItem.DestroyQLayoutItem()
+    }
+}
+//===============================================
 func (obj *GAddressKey) SlotItemClicked(ok bool) {
     lWidget := obj.GetSender(obj.widgetId)
     lWidgetId := obj.widgetId[lWidget]
     fmt.Printf("lWidgetId : %p : %s\n", lWidget, lWidgetId)
+    obj.ClearContent()
 }
 //===============================================
