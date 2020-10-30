@@ -3,35 +3,33 @@ package manager
 //===============================================
 import "fmt"
 import "sync"
-import "bufio"
 import "os"
-import "database/sql"
-import _ "github.com/mattn/go-sqlite3"
+import "bufio"
 //===============================================
-type GSQLiteUiO struct {
+type GQtUiO struct {
     G_STATE string
 }
 //===============================================
-var m_GSQLiteUiLock = &sync.Mutex{}
-var m_GSQLiteUiO *GSQLiteUiO
+var m_GQtUiLock = &sync.Mutex{}
+var m_GQtUiO *GQtUiO
 //===============================================
-func newGSQLiteUi() *GSQLiteUiO {
-    lObj := &GSQLiteUiO{}
+func newGQtUi() *GQtUiO {
+    lObj := &GQtUiO{}
     return lObj
 }
 //===============================================
-func GSQLiteUi() *GSQLiteUiO {
-    if m_GSQLiteUiO == nil {
-        m_GSQLiteUiLock.Lock()
-        defer m_GSQLiteUiLock.Unlock()
-        if m_GSQLiteUiO == nil {
-            m_GSQLiteUiO = newGSQLiteUi()
+func GQtUi() *GQtUiO {
+    if m_GQtUiO == nil {
+        m_GQtUiLock.Lock()
+        defer m_GQtUiLock.Unlock()
+        if m_GQtUiO == nil {
+            m_GQtUiO = newGQtUi()
         }
     }
-    return m_GSQLiteUiO
+    return m_GQtUiO
 }
 //===============================================
-func (obj *GSQLiteUiO) Run() {
+func (obj *GQtUiO) Run() {
     obj.G_STATE = "S_INIT"
     for {
         if obj.G_STATE == "S_ADMIN" { obj.run_ADMIN()
@@ -39,8 +37,8 @@ func (obj *GSQLiteUiO) Run() {
         } else if obj.G_STATE == "S_METHOD" { obj.run_METHOD()
         } else if obj.G_STATE == "S_CHOICE" { obj.run_CHOICE()
         //
-        } else if obj.G_STATE == "S_BUILDER" { obj.run_BUILDER()
-        } else if obj.G_STATE == "S_TABLES_SHOW" { obj.run_TABLES_SHOW()
+        } else if obj.G_STATE == "S_OPEN" { obj.run_OPEN()
+        } else if obj.G_STATE == "S_CLOSE" { obj.run_CLOSE()
         //
         } else if obj.G_STATE == "S_SAVE" { obj.run_SAVE()
         } else if obj.G_STATE == "S_LOAD" { obj.run_LOAD()
@@ -49,14 +47,14 @@ func (obj *GSQLiteUiO) Run() {
     }
 }
 //===============================================
-func (obj *GSQLiteUiO) run_ADMIN() {
+func (obj *GQtUiO) run_ADMIN() {
     GProcess().Run()
     obj.G_STATE = "S_END"
 }
 //===============================================
-func (obj *GSQLiteUiO) run_INIT() {
+func (obj *GQtUiO) run_INIT() {
 	fmt.Printf("\n")
-	fmt.Printf("GO_SQLITE !!!\n")
+	fmt.Printf("GO_QT !!!\n")
 	fmt.Printf("\t%-2s : %s\n", "-q", "quitter l'application")
 	fmt.Printf("\t%-2s : %s\n", "-i", "reinitialiser l'application")
 	fmt.Printf("\t%-2s : %s\n", "-a", "redemarrer l'application")
@@ -65,19 +63,17 @@ func (obj *GSQLiteUiO) run_INIT() {
     obj.G_STATE = "S_LOAD"
 }
 //===============================================
-func (obj *GSQLiteUiO) run_METHOD() {
-	fmt.Printf("GO_SQLITE :\n")
-	fmt.Printf("\t%-2s : %s\n", "0", "lancer le builder")
-	fmt.Printf("\n")
-	fmt.Printf("\t%-2s : %s\n", "1", "afficher les tables")
-	fmt.Printf("\t%-2s : %s\n", "2", "afficher la table CONFIG_GO")
+func (obj *GQtUiO) run_METHOD() {
+	fmt.Printf("GO_QT :\n")
+	fmt.Printf("\t%-2s : %s\n", "1", "ouvrir l'application")
+	fmt.Printf("\t%-2s : %s\n", "2", "fermer l'application")
 	fmt.Printf("\n")
     obj.G_STATE = "S_CHOICE"
 }
 //===============================================
-func (obj *GSQLiteUiO) run_CHOICE() {
+func (obj *GQtUiO) run_CHOICE() {
     var lLast string = "1"
-	fmt.Printf("GO_SQLITE (%s) ? ", lLast)
+	fmt.Printf("GO_QT (%s) ? ", lLast)
     lReader := bufio.NewReader(os.Stdin) ; lAnswer, _ := lReader.ReadString('\n')
     lAnswer = lAnswer[:len(lAnswer)-2]
     if lAnswer == "" { lAnswer = lLast }
@@ -85,53 +81,33 @@ func (obj *GSQLiteUiO) run_CHOICE() {
     } else if lAnswer == "-i" { obj.G_STATE = "S_INIT" 
     } else if lAnswer == "-a" { obj.G_STATE = "S_ADMIN" 
     //
-    } else if lAnswer == "0" { obj.G_STATE = "S_BUILDER" ; GConfig().SetData("GO_SQLITE_ID", lAnswer);
-    //
-    } else if lAnswer == "1" { obj.G_STATE = "S_TABLES_SHOW" ; GConfig().SetData("GO_SQLITE_ID", lAnswer);
+    } else if lAnswer == "1" { obj.G_STATE = "S_OPEN" ; GConfig().SetData("GO_QT_ID", lAnswer);
+    } else if lAnswer == "2" { obj.G_STATE = "S_CLOSE" ; GConfig().SetData("GO_QT_ID", lAnswer);
     //
     }
 }
 //===============================================
-func (obj *GSQLiteUiO) run_BUILDER() {
+func (obj *GQtUiO) run_OPEN() {
 	fmt.Printf("\n")
-    lSqlite := GManager().GetData().sqlite
-    lDb, lErr :=  sql.Open("sqlite3", lSqlite.db_path)
-    if lErr != nil {
-        fmt.Printf("[error] GSQLiteUi : run_BUILDER : Open\n")
-	}
-    lQuery := `
-    select name from sqlite_master 
-    where type='table'
-    `
-    lRow, lErr := lDb.Query(lQuery)
-    if lErr != nil {
-        fmt.Printf("[error] GSQLiteUi : run_BUILDER : Query\n")
-	}
-	for lRow.Next() { 
-		var lName string
-		lRow.Scan(&lName)
-        fmt.Printf("%s\n", lName)
-	}
-    lDb.Close()
-    defer lRow.Close()
+    GQt().Open()
     obj.G_STATE = "S_SAVE"
 }
 //===============================================
-func (obj *GSQLiteUiO) run_TABLES_SHOW() {
+func (obj *GQtUiO) run_CLOSE() {
 	fmt.Printf("\n")
 
     obj.G_STATE = "S_SAVE"
 }
 //===============================================
-func (obj *GSQLiteUiO) run_SAVE() {
+func (obj *GQtUiO) run_SAVE() {
     obj.G_STATE = "S_QUIT"
 }
 //===============================================
-func (obj *GSQLiteUiO) run_LOAD() {
+func (obj *GQtUiO) run_LOAD() {
     obj.G_STATE = "S_METHOD"
 }
 //===============================================
-func (obj *GSQLiteUiO) run_QUIT() {
+func (obj *GQtUiO) run_QUIT() {
 	fmt.Printf("\n")
 	fmt.Printf("GO_QUIT (Oui/[N]on) ? ")
     lReader := bufio.NewReader(os.Stdin) ; lAnswer, _ := lReader.ReadString('\n')

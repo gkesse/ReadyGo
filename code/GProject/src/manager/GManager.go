@@ -51,7 +51,7 @@ func (obj *GManagerO) initObj() {
 	obj.m_mgr.app.app_name = "ReadyAppp"
     // sqlite
 	obj.m_mgr.sqlite = &sGSQLite{}
-	obj.m_mgr.sqlite.db_path = "C:/Users/Admin/Downloads/Programs/ReadyBin/win/.CONFIG_O.dat"
+	obj.m_mgr.sqlite.db_path = "C:\\Users\\Admin\\Downloads\\Programs\\ReadyBin\\win\\.CONFIG_O.dat"
 }
 //===============================================
 func (obj *GManagerO) GetData() *sGManager {

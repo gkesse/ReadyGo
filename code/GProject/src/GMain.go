@@ -7,6 +7,10 @@ func GProcess()(*manager.GProcessO) {
     return manager.GProcess()
 }
 //===============================================
+func GProcessUi()(*manager.GProcessUiO) {
+    return manager.GProcessUi()
+}
+//===============================================
 func GManager()(*manager.GManagerO) {
     return manager.GManager()
 }
