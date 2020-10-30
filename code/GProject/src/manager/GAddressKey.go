@@ -1,14 +1,17 @@
 //===============================================
 package manager
 //===============================================
+import "fmt"
 import "strings"
 import "github.com/therecipe/qt/widgets"
+import "github.com/therecipe/qt/core"
 //===============================================
 // struct
 //===============================================
 type GAddressKey struct {
 	GWidget
     mainLayout *widgets.QHBoxLayout
+    widgetId map[core.QObject_ITF]string
 }
 //===============================================
 // interface
@@ -31,6 +34,8 @@ func NewGAddressKey(parent widgets.QWidget_ITF) *GAddressKey {
     lObj.GWidget = lParent
     lParent.SetObjectName("GAddressKey")
     
+    lObj.widgetId = make(map[core.QObject_ITF]string)
+    
     lMainLayout := widgets.NewQHBoxLayout()
     lObj.mainLayout = lMainLayout
     
@@ -43,6 +48,7 @@ func NewGAddressKey(parent widgets.QWidget_ITF) *GAddressKey {
 //===============================================
 func (obj *GAddressKey) SetContent(text string) {
     lMap := strings.Split(text, "/")
+    lKey := ""
     for i,lText := range lMap {
         if i != 0 {
             lSep := widgets.NewQPushButton(nil)
@@ -52,8 +58,20 @@ func (obj *GAddressKey) SetContent(text string) {
         lButton := widgets.NewQPushButton(nil)
         lButton.SetText(lText)
         obj.mainLayout.AddWidget(lButton, 0, 0)
+        
+        if i != 0 {lKey += "/"}
+        lKey += lText
+        obj.widgetId[lButton] = lKey
+        
+        lButton.ConnectClick(obj.SlotItemClick)
     }
     lSpacer := widgets.NewQLabel(nil, 0)
     obj.mainLayout.AddWidget(lSpacer, 1, 0)
+}
+//===============================================
+func (obj *GAddressKey) SlotItemClick() {
+    lWidget := obj.Sender()
+    lWidgetId := obj.widgetId[lWidget]
+    fmt.Printf("lWidgetId : %s\n", lWidgetId)
 }
 //===============================================
