@@ -1,10 +1,8 @@
 //===============================================
 package manager
 //===============================================
-import "fmt"
 import "strings"
 import "github.com/therecipe/qt/widgets"
-//import "github.com/therecipe/qt/core"
 //===============================================
 // struct
 //===============================================
@@ -12,6 +10,7 @@ type GAddressKey struct {
 	GWidget
     mainLayout *widgets.QHBoxLayout
     widgetId map[widgets.QWidget_ITF]string
+    address string
 }
 //===============================================
 // interface
@@ -35,7 +34,8 @@ func NewGAddressKey(parent widgets.QWidget_ITF) *GAddressKey {
     lParent.SetObjectName("GAddressKey")
     
     lObj.widgetId = make(map[widgets.QWidget_ITF]string)
-    
+    lObj.address = ""
+        
     lMainLayout := widgets.NewQHBoxLayout()
     lObj.mainLayout = lMainLayout
     
@@ -47,6 +47,8 @@ func NewGAddressKey(parent widgets.QWidget_ITF) *GAddressKey {
 // methods
 //===============================================
 func (obj *GAddressKey) SetContent(text string) {
+    obj.ClearContent()
+    obj.address = text
     lMap := strings.Split(text, "/")
     lKey := ""
     for i,lText := range lMap {
@@ -70,19 +72,14 @@ func (obj *GAddressKey) SetContent(text string) {
 }
 //===============================================
 func (obj *GAddressKey) ClearContent() {
-    lCount := obj.mainLayout.Count()
-    for i := 0; i < lCount; i++ {
-        lItem := obj.mainLayout.TakeAt(0)
-        lWidget := lItem.Widget()
-        lWidget.DestroyQWidget()
-        lItem.DestroyQLayoutItem()
-    }
+    GManager().ClearLayout(obj.mainLayout)
+    GManager().ClearMap(obj.widgetId)
 }
 //===============================================
 func (obj *GAddressKey) SlotItemClicked(ok bool) {
-    lWidget := obj.GetSender(obj.widgetId)
+    lWidget := GManager().GetSender(obj.widgetId)
     lWidgetId := obj.widgetId[lWidget]
-    fmt.Printf("lWidgetId : %p : %s\n", lWidget, lWidgetId)
-    obj.ClearContent()
+    if lWidgetId == obj.address {return}
+    obj.SetContent(lWidgetId)
 }
 //===============================================

@@ -3,6 +3,7 @@ package manager
 //===============================================
 import "fmt"
 import "sync"
+import "github.com/therecipe/qt/widgets"
 //===============================================
 type GManagerO struct {
     m_mgr *sGManager    
@@ -58,10 +59,43 @@ func (obj *GManagerO) GetData() *sGManager {
 	return obj.m_mgr
 }
 //===============================================
+// manager
+//===============================================
 func (obj *GManagerO) ShowData() {
     lWidth := -40
 	// app
     fmt.Printf("### app :\n")
     fmt.Printf("%*s : %s\n", lWidth, "obj.m_mgr.app.app_name", obj.m_mgr.app.app_name)
+}
+//===============================================
+// go_map
+//===============================================
+func (obj *GManagerO) ClearMap(aMap map[widgets.QWidget_ITF]string) {
+    for lItem := range aMap {
+        delete(aMap, lItem)
+    }
+}
+//===============================================
+// qt_layout
+//===============================================
+func (obj *GManagerO) ClearLayout(aLayout widgets.QLayout_ITF) {
+    lCount := aLayout.QLayout_PTR().Count()
+    for i := 0; i < lCount; i++ {
+        lItem := aLayout.QLayout_PTR().TakeAt(0)
+        lWidget := lItem.Widget()
+        lWidget.DestroyQWidget()
+        lItem.DestroyQLayoutItem()
+    }
+}
+//===============================================
+// qt_sender
+//===============================================
+func (obj *GManagerO) GetSender(widgetId map[widgets.QWidget_ITF]string) widgets.QWidget_ITF {
+    for lWidget,_ := range widgetId {
+        lSender := lWidget.QObject_PTR().Sender().Pointer()
+        if lSender == nil {continue}
+        return lWidget
+    }
+    return nil
 }
 //===============================================
