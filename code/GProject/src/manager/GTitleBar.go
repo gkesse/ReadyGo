@@ -1,10 +1,7 @@
 //===============================================
 package manager
 //===============================================
-//import "fmt"
 import "github.com/therecipe/qt/widgets"
-import "github.com/therecipe/qt/core"
-//import "github.com/therecipe/qt/gui"
 //===============================================
 // struct
 //===============================================
@@ -56,7 +53,7 @@ func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
     lMainLayout := widgets.NewQHBoxLayout()
     lMainLayout.AddWidget(lLogo, 0, 0)
     lMainLayout.AddWidget(lAppName, 0, 0)
-    lMainLayout.AddWidget(lTitle, 1, core.Qt__AlignCenter)
+    lMainLayout.AddWidget(lTitle, 1, 0)
     lMainLayout.AddWidget(lMinimize, 0, 0)
     lMainLayout.AddWidget(lMaximize, 0, 0)
     lMainLayout.AddWidget(lClose, 0, 0)

@@ -3,7 +3,6 @@ package manager
 //===============================================
 import "strings"
 import "github.com/therecipe/qt/widgets"
-import "github.com/therecipe/qt/core"
 //===============================================
 // struct
 //===============================================
@@ -48,11 +47,13 @@ func (obj *GAddressKey) SetContent(text string) {
         if i != 0 {
             lSep := widgets.NewQPushButton(nil)
             lSep.SetText(">")
-            obj.mainLayout.AddWidget(lSep, 0, core.Qt__AlignLeft)
+            obj.mainLayout.AddWidget(lSep, 0, 0)
         }
         lButton := widgets.NewQPushButton(nil)
         lButton.SetText(lText)
-        obj.mainLayout.AddWidget(lButton, 0, core.Qt__AlignLeft)
+        obj.mainLayout.AddWidget(lButton, 0, 0)
     }
+    lSpacer := widgets.NewQLabel(nil, 0)
+    obj.mainLayout.AddWidget(lSpacer, 1, 0)
 }
 //===============================================

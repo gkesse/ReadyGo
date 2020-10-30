@@ -2,7 +2,6 @@
 package manager
 //===============================================
 import "github.com/therecipe/qt/widgets"
-import "github.com/therecipe/qt/core"
 //===============================================
 // struct
 //===============================================
@@ -43,7 +42,7 @@ func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
 
     lMainLayout := widgets.NewQHBoxLayout()
     lMainLayout.AddWidget(lIcon, 0, 0)
-    lMainLayout.AddWidget(lAddress, 1, core.Qt__AlignCenter)
+    lMainLayout.AddWidget(lAddress, 1, 0)
     lMainLayout.AddWidget(lGoTo, 0, 0)
     
     lParent.SetLayout(lMainLayout)
