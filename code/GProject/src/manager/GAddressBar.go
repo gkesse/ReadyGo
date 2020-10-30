@@ -9,18 +9,16 @@ type GAddressBar struct {
 	GWidget
 }
 //===============================================
-// interface
-//===============================================
 type GAddressBar_ITF interface {
 	GWidget_ITF
 	GAddressBar_PTR() *GAddressBar
 }
 //===============================================
-// constructor
-//===============================================
 func (obj *GAddressBar) GAddressBar_PTR() *GAddressBar {
 	return obj
 }
+//===============================================
+// constructor
 //===============================================
 func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
     lObj := &GAddressBar{}

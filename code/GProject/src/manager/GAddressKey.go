@@ -13,18 +13,16 @@ type GAddressKey struct {
     address string
 }
 //===============================================
-// interface
-//===============================================
 type GAddressKey_ITF interface {
 	GWidget_ITF
 	GAddressKey_PTR() *GAddressKey
 }
 //===============================================
-// constructor
-//===============================================
 func (obj *GAddressKey) GAddressKey_PTR() *GAddressKey {
 	return obj
 }
+//===============================================
+// constructor
 //===============================================
 func NewGAddressKey(parent widgets.QWidget_ITF) *GAddressKey {
     lObj := &GAddressKey{}

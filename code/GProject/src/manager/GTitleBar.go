@@ -9,8 +9,6 @@ type GTitleBar struct {
 	GWidget
 }
 //===============================================
-// interface
-//===============================================
 type GTitleBar_ITF interface {
 	GWidget_ITF
 	GTitleBar_PTR() *GTitleBar
@@ -64,6 +62,4 @@ func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
 }
 //===============================================
 // methods
-//===============================================
-
 //===============================================

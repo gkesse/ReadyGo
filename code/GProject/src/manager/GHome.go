@@ -5,30 +5,33 @@ import "github.com/therecipe/qt/widgets"
 //===============================================
 // struct
 //===============================================
-type GListBox struct {
+type GHome struct {
 	GWidget
-    mainLayout *widgets.QVBoxLayout
 }
 //===============================================
-type GListBox_ITF interface {
+type GHome_ITF interface {
 	GWidget_ITF
-	GListBox_PTR() *GListBox
+	GHome_PTR() *GHome
 }
 //===============================================
-func (obj *GListBox) GListBox_PTR() *GListBox {
+func (obj *GHome) GHome_PTR() *GHome {
 	return obj
 }
 //===============================================
 // constructor
 //===============================================
-func NewGListBox(parent widgets.QWidget_ITF) *GListBox {
-    lObj := &GListBox{}
+func NewGHome(parent widgets.QWidget_ITF) *GHome {
+    lObj := &GHome{}
 
     lParent := *NewGWidget(parent)
     lObj.GWidget = lParent
     
+    lListBox := CreateGWidget("listbox", nil)
+    lListBox.AddContent("SQLite")
+    lListBox.AddContent("OpenCV")
+    
     lMainLayout := widgets.NewQVBoxLayout()
-    lObj.mainLayout = lMainLayout
+    lMainLayout.AddWidget(lListBox, 1, 0)
     
     lParent.SetLayout(lMainLayout)
         
@@ -36,10 +39,4 @@ func NewGListBox(parent widgets.QWidget_ITF) *GListBox {
 }
 //===============================================
 // methods
-//===============================================
-func (obj *GListBox) AddContent(text string) {
-    lButton := widgets.NewQPushButton(nil)
-    lButton.SetText(text)
-    obj.mainLayout.AddWidget(lButton, 0, 0)
-}
 //===============================================

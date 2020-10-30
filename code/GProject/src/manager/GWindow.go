@@ -39,7 +39,7 @@ func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
     lWorkspace := widgets.NewQStackedWidget(nil)
     lObj.workspace = lWorkspace
     
-    lObj.AddPage(CreateGWidget("titlebar", nil))
+    lObj.AddPage(CreateGWidget("home", nil))
     
     lMainLayout := widgets.NewQVBoxLayout()
     lMainLayout.AddWidget(lTitleBar, 0, 0)

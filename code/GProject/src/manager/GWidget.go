@@ -19,6 +19,7 @@ type GWidget_ITF interface {
 //===============================================
 type GWidgetI interface {
     AddPage(widget widgets.QWidget_ITF)
+    AddContent(text string)
     SetContent(text string)
     ClearContent()
     SlotItemClicked(ok bool)
@@ -42,8 +43,9 @@ func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
     if key == "titlebar" {return NewGTitleBar(parent)}
     if key == "addressbar" {return NewGAddressBar(parent)}
     if key == "addresskey" {return NewGAddressKey(parent)}
-    //
+    // window
     if key == "window" {return NewGWindow(parent)}
+    if key == "home" {return NewGHome(parent)}
     //
 	return NewGWidget(parent)
 }
@@ -51,6 +53,7 @@ func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
 // methods
 //===============================================
 func (obj *GWidget) AddPage(widget widgets.QWidget_ITF) {}
+func (obj *GWidget) AddContent(text string) {}
 func (obj *GWidget) SetContent(text string) {}
 func (obj *GWidget) ClearContent() {}
 //===============================================
