@@ -74,7 +74,7 @@ func (obj *GAddressKey) ClearContent() {
     for i := 0; i < lCount; i++ {
         lItem := obj.mainLayout.TakeAt(0)
         lWidget := lItem.Widget()
-        lWidget.DeleteLater()
+        lWidget.DestroyQWidget()
         lItem.DestroyQLayoutItem()
     }
 }
