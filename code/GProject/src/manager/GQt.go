@@ -29,9 +29,9 @@ func GQt() *GQtO {
 }
 //===============================================
 func (obj *GQtO) Open() {
-	lApp := widgets.NewQApplication(len(os.Args), os.Args)
-	lWindow := widgets.NewQFrame(nil, 0)
-	lWindow.Show()
-	lApp.Exec()
+    lApp := widgets.NewQApplication(len(os.Args), os.Args)
+    lWindow := widgets.NewQFrame(nil, 0)
+    lWindow.Show()
+    lApp.Exec()
 }
 //===============================================

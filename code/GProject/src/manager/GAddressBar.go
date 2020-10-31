@@ -6,16 +6,16 @@ import "github.com/therecipe/qt/widgets"
 // struct
 //===============================================
 type GAddressBar struct {
-	GWidget
+    GWidget
 }
 //===============================================
 type GAddressBar_ITF interface {
-	GWidget_ITF
-	GAddressBar_PTR() *GAddressBar
+    GWidget_ITF
+    GAddressBar_PTR() *GAddressBar
 }
 //===============================================
 func (obj *GAddressBar) GAddressBar_PTR() *GAddressBar {
-	return obj
+    return obj
 }
 //===============================================
 // constructor
@@ -45,7 +45,7 @@ func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
     
     lParent.SetLayout(lMainLayout)
     
-	return lObj
+    return lObj
 }
 //===============================================
 // methods

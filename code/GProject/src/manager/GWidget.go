@@ -6,15 +6,15 @@ import "github.com/therecipe/qt/widgets"
 // struct
 //===============================================
 type GWidget struct {
-	widgets.QFrame
+    widgets.QFrame
 }
 //===============================================
 // interface
 //===============================================
 type GWidget_ITF interface {
-	widgets.QFrame_ITF
+    widgets.QFrame_ITF
     GWidgetI
-	GWidget_PTR() *GWidget
+    GWidget_PTR() *GWidget
 }
 //===============================================
 type GWidgetI interface {
@@ -28,12 +28,12 @@ type GWidgetI interface {
 // constructor
 //===============================================
 func (obj *GWidget) GWidget_PTR() *GWidget {
-	return obj
+    return obj
 }
 //===============================================
 func NewGWidget(parent widgets.QWidget_ITF) *GWidget {
     lParent := *widgets.NewQFrame(parent, 0)
-	return &GWidget {lParent}
+    return &GWidget {lParent}
 }
 //===============================================
 func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
@@ -47,7 +47,7 @@ func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
     if key == "window" {return NewGWindow(parent)}
     if key == "home" {return NewGHome(parent)}
     //
-	return NewGWidget(parent)
+    return NewGWidget(parent)
 }
 //===============================================
 // methods

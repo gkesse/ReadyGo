@@ -6,16 +6,16 @@ import "github.com/therecipe/qt/widgets"
 // struct
 //===============================================
 type GWindow struct {
-	GWidget
+    GWidget
 }
 //===============================================
 type GWindow_ITF interface {
-	GWidget_ITF
-	GWindow_PTR() *GWindow
+    GWidget_ITF
+    GWindow_PTR() *GWindow
 }
 //===============================================
 func (obj *GWindow) GWindow_PTR() *GWindow {
-	return obj
+    return obj
 }
 //===============================================
 func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
@@ -50,7 +50,7 @@ func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
 
     lParent.SetLayout(lMainLayout)
         
-	return lObj
+    return lObj
 }
 //===============================================
 // methods

@@ -53,27 +53,27 @@ func (obj *GQtUiO) run_ADMIN() {
 }
 //===============================================
 func (obj *GQtUiO) run_INIT() {
-	fmt.Printf("\n")
-	fmt.Printf("GO_QT !!!\n")
-	fmt.Printf("\t%-2s : %s\n", "-q", "quitter l'application")
-	fmt.Printf("\t%-2s : %s\n", "-i", "reinitialiser l'application")
-	fmt.Printf("\t%-2s : %s\n", "-a", "redemarrer l'application")
-	fmt.Printf("\t%-2s : %s\n", "-v", "valider les configurations")
-	fmt.Printf("\n")
+    fmt.Printf("\n")
+    fmt.Printf("GO_QT !!!\n")
+    fmt.Printf("\t%-2s : %s\n", "-q", "quitter l'application")
+    fmt.Printf("\t%-2s : %s\n", "-i", "reinitialiser l'application")
+    fmt.Printf("\t%-2s : %s\n", "-a", "redemarrer l'application")
+    fmt.Printf("\t%-2s : %s\n", "-v", "valider les configurations")
+    fmt.Printf("\n")
     obj.G_STATE = "S_LOAD"
 }
 //===============================================
 func (obj *GQtUiO) run_METHOD() {
-	fmt.Printf("GO_QT :\n")
-	fmt.Printf("\t%-2s : %s\n", "1", "ouvrir l'application")
-	fmt.Printf("\t%-2s : %s\n", "2", "fermer l'application")
-	fmt.Printf("\n")
+    fmt.Printf("GO_QT :\n")
+    fmt.Printf("\t%-2s : %s\n", "1", "ouvrir l'application")
+    fmt.Printf("\t%-2s : %s\n", "2", "fermer l'application")
+    fmt.Printf("\n")
     obj.G_STATE = "S_CHOICE"
 }
 //===============================================
 func (obj *GQtUiO) run_CHOICE() {
     var lLast string = "1"
-	fmt.Printf("GO_QT (%s) ? ", lLast)
+    fmt.Printf("GO_QT (%s) ? ", lLast)
     lReader := bufio.NewReader(os.Stdin) ; lAnswer, _ := lReader.ReadString('\n')
     lAnswer = lAnswer[:len(lAnswer)-2]
     if lAnswer == "" { lAnswer = lLast }
@@ -88,13 +88,13 @@ func (obj *GQtUiO) run_CHOICE() {
 }
 //===============================================
 func (obj *GQtUiO) run_OPEN() {
-	fmt.Printf("\n")
+    fmt.Printf("\n")
     GQt().Open()
     obj.G_STATE = "S_SAVE"
 }
 //===============================================
 func (obj *GQtUiO) run_CLOSE() {
-	fmt.Printf("\n")
+    fmt.Printf("\n")
 
     obj.G_STATE = "S_SAVE"
 }
@@ -108,8 +108,8 @@ func (obj *GQtUiO) run_LOAD() {
 }
 //===============================================
 func (obj *GQtUiO) run_QUIT() {
-	fmt.Printf("\n")
-	fmt.Printf("GO_QUIT (Oui/[N]on) ? ")
+    fmt.Printf("\n")
+    fmt.Printf("GO_QUIT (Oui/[N]on) ? ")
     lReader := bufio.NewReader(os.Stdin) ; lAnswer, _ := lReader.ReadString('\n')
     lAnswer = lAnswer[:len(lAnswer)-2]
     if lAnswer == "-q" { obj.G_STATE = "S_END" 

@@ -58,28 +58,28 @@ func GManager() *GManagerO {
 //===============================================
 func (obj *GManagerO) initObj() {
     // manager
-	obj.mgr = &sGManager{}
+    obj.mgr = &sGManager{}
     // app
-	obj.mgr.qt = &sGQt{}
-	obj.mgr.qt.page_id = make(map[string]int)
-	obj.mgr.qt.current_page = ""
+    obj.mgr.qt = &sGQt{}
+    obj.mgr.qt.page_id = make(map[string]int)
+    obj.mgr.qt.current_page = ""
     // app
-	obj.mgr.app = &sGApp{}
-	obj.mgr.app.app_name = "ReadyAppp"
+    obj.mgr.app = &sGApp{}
+    obj.mgr.app.app_name = "ReadyAppp"
     // sqlite
-	obj.mgr.sqlite = &sGSQLite{}
-	obj.mgr.sqlite.db_path = "C:\\Users\\Admin\\Downloads\\Programs\\ReadyBin\\win\\.CONFIG_O.dat"
+    obj.mgr.sqlite = &sGSQLite{}
+    obj.mgr.sqlite.db_path = "C:\\Users\\Admin\\Downloads\\Programs\\ReadyBin\\win\\.CONFIG_O.dat"
 }
 //===============================================
 func (obj *GManagerO) GetData() *sGManager {
-	return obj.mgr
+    return obj.mgr
 }
 //===============================================
 // manager
 //===============================================
 func (obj *GManagerO) ShowData() {
     lWidth := -40
-	// app
+    // app
     fmt.Printf("### app :\n")
     fmt.Printf("%*s : %s\n", lWidth, "obj.mgr.app.app_name", obj.mgr.app.app_name)
 }

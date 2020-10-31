@@ -6,18 +6,18 @@ import "github.com/therecipe/qt/widgets"
 // struct
 //===============================================
 type GTitleBar struct {
-	GWidget
+    GWidget
 }
 //===============================================
 type GTitleBar_ITF interface {
-	GWidget_ITF
-	GTitleBar_PTR() *GTitleBar
+    GWidget_ITF
+    GTitleBar_PTR() *GTitleBar
 }
 //===============================================
 // constructor
 //===============================================
 func (obj *GTitleBar) GTitleBar_PTR() *GTitleBar {
-	return obj
+    return obj
 }
 //===============================================
 func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
@@ -58,7 +58,7 @@ func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
     
     lParent.SetLayout(lMainLayout)
     
-	return &GTitleBar {lParent}
+    return &GTitleBar {lParent}
 }
 //===============================================
 // methods

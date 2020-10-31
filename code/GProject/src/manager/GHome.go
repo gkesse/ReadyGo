@@ -6,16 +6,16 @@ import "github.com/therecipe/qt/widgets"
 // struct
 //===============================================
 type GHome struct {
-	GWidget
+    GWidget
 }
 //===============================================
 type GHome_ITF interface {
-	GWidget_ITF
-	GHome_PTR() *GHome
+    GWidget_ITF
+    GHome_PTR() *GHome
 }
 //===============================================
 func (obj *GHome) GHome_PTR() *GHome {
-	return obj
+    return obj
 }
 //===============================================
 // constructor
@@ -37,7 +37,7 @@ func NewGHome(parent widgets.QWidget_ITF) *GHome {
     
     lParent.SetLayout(lMainLayout)
         
-	return lObj
+    return lObj
 }
 //===============================================
 // methods

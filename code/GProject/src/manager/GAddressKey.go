@@ -7,18 +7,18 @@ import "github.com/therecipe/qt/widgets"
 // struct
 //===============================================
 type GAddressKey struct {
-	GWidget
+    GWidget
     mainLayout *widgets.QHBoxLayout
     widgetId map[widgets.QWidget_ITF]string
 }
 //===============================================
 type GAddressKey_ITF interface {
-	GWidget_ITF
-	GAddressKey_PTR() *GAddressKey
+    GWidget_ITF
+    GAddressKey_PTR() *GAddressKey
 }
 //===============================================
 func (obj *GAddressKey) GAddressKey_PTR() *GAddressKey {
-	return obj
+    return obj
 }
 //===============================================
 // constructor
@@ -37,7 +37,7 @@ func NewGAddressKey(parent widgets.QWidget_ITF) *GAddressKey {
     
     lParent.SetLayout(lMainLayout)
     
-	return lObj
+    return lObj
 }
 //===============================================
 // methods
