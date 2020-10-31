@@ -18,7 +18,7 @@ type GWidget_ITF interface {
 }
 //===============================================
 type GWidgetI interface {
-    AddPage(widget widgets.QWidget_ITF, key string, defaultId int)
+    AddPage(widget widgets.QWidget_ITF, key string, title string, defaultId int)
     AddContent(key string, text string)
     SetContent(text string)
     ClearContent()
@@ -52,7 +52,7 @@ func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
 //===============================================
 // methods
 //===============================================
-func (obj *GWidget) AddPage(widget widgets.QWidget_ITF, key string, defaultId int) {}
+func (obj *GWidget) AddPage(widget widgets.QWidget_ITF, key string, title string, defaultId int) {}
 func (obj *GWidget) AddContent(text string, key string) {}
 func (obj *GWidget) SetContent(text string) {}
 func (obj *GWidget) ClearContent() {}

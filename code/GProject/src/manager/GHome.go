@@ -29,6 +29,7 @@ func NewGHome(parent widgets.QWidget_ITF) *GHome {
     lListBox := CreateGWidget("listbox", nil)
     lListBox.AddContent("Qt", "home/qt")
     lListBox.AddContent("SQLite", "home/sqlite")
+    lListBox.AddContent("MongoDB", "home/mongodb")
     lListBox.AddContent("OpenCV", "home/opencv")
     lListBox.AddContent("Builder", "home/builder")
     

@@ -2,6 +2,7 @@
 package manager
 //===============================================
 import "github.com/therecipe/qt/widgets"
+import "github.com/therecipe/qt/core"
 //===============================================
 // struct
 //===============================================
@@ -21,6 +22,9 @@ func (obj *GTitleBar) GTitleBar_PTR() *GTitleBar {
 }
 //===============================================
 func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
+    lApp := GManager().mgr.app
+    lQt := GManager().mgr.qt
+    
     lParent := *NewGWidget(parent)
     lParent.SetObjectName("GTitleBar")
     
@@ -30,11 +34,11 @@ func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
     
     lAppName := widgets.NewQLabel(nil, 0)
     lAppName.SetObjectName("app_name")
-    lAppName.SetText("app_name");
+    lAppName.SetText(lApp.app_name);
         
     lTitle := widgets.NewQLabel(nil, 0)
+    lQt.title_id = lTitle
     lTitle.SetObjectName("title")
-    lTitle.SetText("title");
         
     lMinimize := widgets.NewQPushButton(nil)
     lMinimize.SetObjectName("minimize")
@@ -51,7 +55,7 @@ func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
     lMainLayout := widgets.NewQHBoxLayout()
     lMainLayout.AddWidget(lLogo, 0, 0)
     lMainLayout.AddWidget(lAppName, 0, 0)
-    lMainLayout.AddWidget(lTitle, 1, 0)
+    lMainLayout.AddWidget(lTitle, 1, core.Qt__AlignCenter)
     lMainLayout.AddWidget(lMinimize, 0, 0)
     lMainLayout.AddWidget(lMaximize, 0, 0)
     lMainLayout.AddWidget(lClose, 0, 0)

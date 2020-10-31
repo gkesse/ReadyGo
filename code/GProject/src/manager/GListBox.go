@@ -22,7 +22,7 @@ func (obj *GListBox) GListBox_PTR() *GListBox {
 //===============================================
 // constructor
 //===============================================
-func NewGListBox(parent widgets.QWidget_ITF) *GListBox {
+func NewGListBox(parent widgets.QWidget_ITF) *GListBox {   
     lObj := &GListBox{}
 
     lParent := *NewGWidget(parent)

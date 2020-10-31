@@ -36,11 +36,11 @@ func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
     lWorkspace := widgets.NewQStackedWidget(nil)
     lQt.page_map = lWorkspace
     
-    lObj.AddPage(CreateGWidget("home", nil), "home", 1)
-    lObj.AddPage(CreateGWidget("qt", nil), "home/qt", 0)
-    lObj.AddPage(CreateGWidget("sqlite", nil), "home/sqlite", 0)
-    lObj.AddPage(CreateGWidget("opencv", nil), "home/opencv", 0)
-    lObj.AddPage(CreateGWidget("builder", nil), "home/builder", 0)
+    lObj.AddPage(CreateGWidget("home", nil), "home", "Accueil", 1)
+    lObj.AddPage(CreateGWidget("qt", nil), "home/qt", "Qt", 0)
+    lObj.AddPage(CreateGWidget("sqlite", nil), "home/sqlite", "SQLite", 0)
+    lObj.AddPage(CreateGWidget("opencv", nil), "home/opencv", "OpenCV", 0)
+    lObj.AddPage(CreateGWidget("builder", nil), "home/builder", "Builder", 0)
     
     lMainLayout := widgets.NewQVBoxLayout()
     lMainLayout.AddWidget(lTitleBar, 0, 0)
@@ -57,11 +57,12 @@ func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
 //===============================================
 // methods
 //===============================================
-func (obj *GWindow) AddPage(widget widgets.QWidget_ITF, key string, defaultId int) {
+func (obj *GWindow) AddPage(widget widgets.QWidget_ITF, key string, title string, defaultId int) {
     lQt := GManager().mgr.qt
     lPageId := lQt.page_map.Count()
     lQt.page_map.AddWidget(widget)
     lQt.page_id[key] = lPageId
+    lQt.title_map[key] = title
     if defaultId == 1 {
         GManager().SetPage(key)
     }

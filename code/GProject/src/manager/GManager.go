@@ -26,6 +26,8 @@ type sGQt struct {
     page_id map[string]int
     current_page string
     address_key GWidget_ITF
+    title_id *widgets.QLabel
+    title_map map[string]string
 }
 //===============================================
 type sGSQLite struct {
@@ -62,10 +64,11 @@ func (obj *GManagerO) initObj() {
     // app
     obj.mgr.qt = &sGQt{}
     obj.mgr.qt.page_id = make(map[string]int)
+    obj.mgr.qt.title_map = make(map[string]string)
     obj.mgr.qt.current_page = ""
     // app
     obj.mgr.app = &sGApp{}
-    obj.mgr.app.app_name = "ReadyAppp"
+    obj.mgr.app.app_name = "ReadyApp"
     // sqlite
     obj.mgr.sqlite = &sGSQLite{}
     obj.mgr.sqlite.db_path = "C:\\Users\\Admin\\Downloads\\Programs\\ReadyBin\\win\\.CONFIG_O.dat"
@@ -122,8 +125,11 @@ func (obj *GManagerO) SetPage(pageId string) {
     lPageId,lOk := obj.mgr.qt.page_id[pageId]
     if lOk == false {return}
     if pageId == obj.mgr.qt.current_page {return}
+    lTitle,lOk := obj.mgr.qt.title_map[pageId]
+    if lOk == false {lTitle = ""}
     obj.mgr.qt.page_map.SetCurrentIndex(lPageId)
     obj.mgr.qt.address_key.SetContent(pageId)
     obj.mgr.qt.current_page = pageId
+    obj.mgr.qt.title_id.SetText(lTitle)
 }
 //===============================================
