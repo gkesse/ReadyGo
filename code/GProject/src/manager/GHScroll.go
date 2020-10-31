@@ -36,6 +36,7 @@ func NewGHScroll(parent widgets.QWidget_ITF) *GHScroll {
     
     lScrollArea := widgets.NewQScrollArea(nil)
     lScrollArea.SetWidget(lScrollWidget)
+    lScrollArea.SetWidgetResizable(true)
     
     lMainLayout := widgets.NewQHBoxLayout()
     lMainLayout.AddWidget(lScrollArea, 0, 0)

@@ -30,12 +30,15 @@ func NewGVScroll(parent widgets.QWidget_ITF) *GVScroll {
     
     lScrollLayout := widgets.NewQVBoxLayout()
     lObj.scrollLayout = lScrollLayout
+    lScrollLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
+    lScrollLayout.SetSpacing(0)
     
     lScrollWidget := widgets.NewQWidget(nil, 0)
     lScrollWidget.SetLayout(lScrollLayout)
     
     lScrollArea := widgets.NewQScrollArea(nil)
     lScrollArea.SetWidget(lScrollWidget)
+    lScrollArea.SetWidgetResizable(true)
     
     lMainLayout := widgets.NewQVBoxLayout()
     lMainLayout.AddWidget(lScrollArea, 0, 0)

@@ -27,11 +27,18 @@ func NewGDatabaseView(parent widgets.QWidget_ITF) *GDatabaseView {
     lObj.GWidget = lParent
     lParent.SetObjectName("GDatabaseView")
     
-    lWorkspace := widgets.NewQLabel(nil, 0)
-    lWorkspace.SetText("GDatabaseView")
+    lOpen := widgets.NewQPushButton(nil, 0)
+    lOpen.SetText("Open")
+        
+    lHeaderLayout := widgets.NewQHBoxLayout()
+    lHeaderLayout.AddWidget(lOpen, 0, 0)
+    lHeaderLayout.AddStretch(1)
+    lHeaderLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
+    lHeaderLayout.SetSpacing(5)
     
-    lMainLayout := widgets.NewQHBoxLayout()
-    lMainLayout.AddWidget(lWorkspace, 0, 0)
+    lMainLayout := widgets.NewQVBoxLayout()
+    lMainLayout.AddLayout(lHeaderLayout, 0)
+    lHeaderLayout.AddStretch(1)
     lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
     lMainLayout.SetSpacing(5)
     

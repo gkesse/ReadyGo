@@ -7,7 +7,7 @@ import "github.com/therecipe/qt/widgets"
 //===============================================
 type GBuilder struct {
     GWidget
-    mainLayout *widgets.QVBoxLayout
+    contentWidget GWidget_ITF
 }
 //===============================================
 type GBuilder_ITF interface {
@@ -27,11 +27,9 @@ func NewGBuilder(parent widgets.QWidget_ITF) *GBuilder {
     lParent := *NewGWidget(parent)
     lObj.GWidget = lParent
     lParent.SetObjectName("GBuilder")
-            
-    lMainLayout := widgets.NewQVBoxLayout()
-    lObj.mainLayout = lMainLayout
-    lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
-    lMainLayout.SetSpacing(0)
+    
+    lContentWidget := CreateGWidget("vscroll", nil)
+    lObj.contentWidget = lContentWidget
     
     lObj.AddBuilder("databaseview")
     lObj.AddBuilder("databaseview")
@@ -52,6 +50,11 @@ func NewGBuilder(parent widgets.QWidget_ITF) *GBuilder {
     lObj.AddBuilder("databaseview")
     lObj.AddBuilder("databaseview")
     lObj.AddBuilder("databaseview")
+    
+    lMainLayout := widgets.NewQVBoxLayout()
+    lMainLayout.AddWidget(lContentWidget, 0, 0)
+    lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
+    lMainLayout.SetSpacing(0)
     
     lParent.SetLayout(lMainLayout)
     
@@ -60,6 +63,6 @@ func NewGBuilder(parent widgets.QWidget_ITF) *GBuilder {
 //===============================================
 func (obj *GBuilder) AddBuilder(key string) {
     lWidget := CreateGWidget(key, nil)
-    obj.mainLayout.AddWidget(lWidget, 0, 0)
+    obj.contentWidget.AddScroll(lWidget)
 }
 //===============================================
