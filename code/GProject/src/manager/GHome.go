@@ -27,8 +27,10 @@ func NewGHome(parent widgets.QWidget_ITF) *GHome {
     lObj.GWidget = lParent
     
     lListBox := CreateGWidget("listbox", nil)
-    lListBox.AddContent("SQLite")
-    lListBox.AddContent("OpenCV")
+    lListBox.AddContent("Qt", "home/qt")
+    lListBox.AddContent("SQLite", "home/sqlite")
+    lListBox.AddContent("OpenCV", "home/opencv")
+    lListBox.AddContent("Builder", "home/builder")
     
     lMainLayout := widgets.NewQVBoxLayout()
     lMainLayout.AddWidget(lListBox, 1, 0)

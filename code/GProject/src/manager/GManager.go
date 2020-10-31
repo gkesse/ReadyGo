@@ -5,12 +5,15 @@ import "fmt"
 import "sync"
 import "github.com/therecipe/qt/widgets"
 //===============================================
+// struct
+//===============================================
 type GManagerO struct {
-    m_mgr *sGManager    
+    mgr *sGManager    
 }
 //===============================================
 type sGManager struct {
     app *sGApp
+    qt *sGQt
     sqlite *sGSQLite
 }
 //===============================================
@@ -18,9 +21,18 @@ type sGApp struct {
     app_name string
 }
 //===============================================
+type sGQt struct {
+    page_map *widgets.QStackedWidget
+    page_id map[string]int
+    current_page string
+    address_key GWidget_ITF
+}
+//===============================================
 type sGSQLite struct {
     db_path string
 }
+//===============================================
+// constructor
 //===============================================
 var m_GManagerLock = &sync.Mutex{}
 var m_GManagerO *GManagerO
@@ -46,17 +58,21 @@ func GManager() *GManagerO {
 //===============================================
 func (obj *GManagerO) initObj() {
     // manager
-	obj.m_mgr = &sGManager{}
+	obj.mgr = &sGManager{}
     // app
-	obj.m_mgr.app = &sGApp{}
-	obj.m_mgr.app.app_name = "ReadyAppp"
+	obj.mgr.qt = &sGQt{}
+	obj.mgr.qt.page_id = make(map[string]int)
+	obj.mgr.qt.current_page = ""
+    // app
+	obj.mgr.app = &sGApp{}
+	obj.mgr.app.app_name = "ReadyAppp"
     // sqlite
-	obj.m_mgr.sqlite = &sGSQLite{}
-	obj.m_mgr.sqlite.db_path = "C:\\Users\\Admin\\Downloads\\Programs\\ReadyBin\\win\\.CONFIG_O.dat"
+	obj.mgr.sqlite = &sGSQLite{}
+	obj.mgr.sqlite.db_path = "C:\\Users\\Admin\\Downloads\\Programs\\ReadyBin\\win\\.CONFIG_O.dat"
 }
 //===============================================
 func (obj *GManagerO) GetData() *sGManager {
-	return obj.m_mgr
+	return obj.mgr
 }
 //===============================================
 // manager
@@ -65,23 +81,23 @@ func (obj *GManagerO) ShowData() {
     lWidth := -40
 	// app
     fmt.Printf("### app :\n")
-    fmt.Printf("%*s : %s\n", lWidth, "obj.m_mgr.app.app_name", obj.m_mgr.app.app_name)
+    fmt.Printf("%*s : %s\n", lWidth, "obj.mgr.app.app_name", obj.mgr.app.app_name)
 }
 //===============================================
 // go_map
 //===============================================
-func (obj *GManagerO) ClearMap(aMap map[widgets.QWidget_ITF]string) {
-    for lItem := range aMap {
-        delete(aMap, lItem)
+func (obj *GManagerO) ClearMap(mapId map[widgets.QWidget_ITF]string) {
+    for lItem := range mapId {
+        delete(mapId, lItem)
     }
 }
 //===============================================
 // qt_layout
 //===============================================
-func (obj *GManagerO) ClearLayout(aLayout widgets.QLayout_ITF) {
-    lCount := aLayout.QLayout_PTR().Count()
+func (obj *GManagerO) ClearLayout(layoutId widgets.QLayout_ITF) {
+    lCount := layoutId.QLayout_PTR().Count()
     for i := 0; i < lCount; i++ {
-        lItem := aLayout.QLayout_PTR().TakeAt(0)
+        lItem := layoutId.QLayout_PTR().TakeAt(0)
         lWidget := lItem.Widget()
         lWidget.DestroyQWidget()
         lItem.DestroyQLayoutItem()
@@ -97,5 +113,17 @@ func (obj *GManagerO) GetSender(widgetId map[widgets.QWidget_ITF]string) widgets
         return lWidget
     }
     return nil
+}
+//===============================================
+// qt_page
+//===============================================
+func (obj *GManagerO) SetPage(pageId string) {
+    if pageId == "" {return}
+    lPageId,lOk := obj.mgr.qt.page_id[pageId]
+    if lOk == false {return}
+    if pageId == obj.mgr.qt.current_page {return}
+    obj.mgr.qt.page_map.SetCurrentIndex(lPageId)
+    obj.mgr.qt.address_key.SetContent(pageId)
+    obj.mgr.qt.current_page = pageId
 }
 //===============================================

@@ -8,6 +8,7 @@ import "github.com/therecipe/qt/widgets"
 type GListBox struct {
 	GWidget
     mainLayout *widgets.QVBoxLayout
+    widgetId map[widgets.QWidget_ITF]string
 }
 //===============================================
 type GListBox_ITF interface {
@@ -27,6 +28,8 @@ func NewGListBox(parent widgets.QWidget_ITF) *GListBox {
     lParent := *NewGWidget(parent)
     lObj.GWidget = lParent
     
+    lObj.widgetId = make(map[widgets.QWidget_ITF]string)
+    
     lMainLayout := widgets.NewQVBoxLayout()
     lObj.mainLayout = lMainLayout
     
@@ -37,9 +40,19 @@ func NewGListBox(parent widgets.QWidget_ITF) *GListBox {
 //===============================================
 // methods
 //===============================================
-func (obj *GListBox) AddContent(text string) {
+func (obj *GListBox) AddContent(text string, key string) {
     lButton := widgets.NewQPushButton(nil)
     lButton.SetText(text)
     obj.mainLayout.AddWidget(lButton, 0, 0)
+    obj.widgetId[lButton] = key
+    lButton.ConnectClicked(obj.SlotItemClicked)
+}
+//===============================================
+// slot
+//===============================================
+func (obj *GListBox) SlotItemClicked(ok bool) {
+    lWidget := GManager().GetSender(obj.widgetId)
+    lWidgetId := obj.widgetId[lWidget]
+    GManager().SetPage(lWidgetId)
 }
 //===============================================

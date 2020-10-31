@@ -10,7 +10,6 @@ type GAddressKey struct {
 	GWidget
     mainLayout *widgets.QHBoxLayout
     widgetId map[widgets.QWidget_ITF]string
-    address string
 }
 //===============================================
 type GAddressKey_ITF interface {
@@ -32,7 +31,6 @@ func NewGAddressKey(parent widgets.QWidget_ITF) *GAddressKey {
     lParent.SetObjectName("GAddressKey")
     
     lObj.widgetId = make(map[widgets.QWidget_ITF]string)
-    lObj.address = ""
         
     lMainLayout := widgets.NewQHBoxLayout()
     lObj.mainLayout = lMainLayout
@@ -46,7 +44,6 @@ func NewGAddressKey(parent widgets.QWidget_ITF) *GAddressKey {
 //===============================================
 func (obj *GAddressKey) SetContent(text string) {
     obj.ClearContent()
-    obj.address = text
     lMap := strings.Split(text, "/")
     lKey := ""
     for i,lText := range lMap {
@@ -74,10 +71,11 @@ func (obj *GAddressKey) ClearContent() {
     GManager().ClearMap(obj.widgetId)
 }
 //===============================================
+// slot
+//===============================================
 func (obj *GAddressKey) SlotItemClicked(ok bool) {
     lWidget := GManager().GetSender(obj.widgetId)
     lWidgetId := obj.widgetId[lWidget]
-    if lWidgetId == obj.address {return}
-    obj.SetContent(lWidgetId)
+    GManager().SetPage(lWidgetId)
 }
 //===============================================

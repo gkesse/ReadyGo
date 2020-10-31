@@ -18,8 +18,8 @@ type GWidget_ITF interface {
 }
 //===============================================
 type GWidgetI interface {
-    AddPage(widget widgets.QWidget_ITF)
-    AddContent(text string)
+    AddPage(widget widgets.QWidget_ITF, key string, defaultId int)
+    AddContent(key string, text string)
     SetContent(text string)
     ClearContent()
     SlotItemClicked(ok bool)
@@ -52,8 +52,8 @@ func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
 //===============================================
 // methods
 //===============================================
-func (obj *GWidget) AddPage(widget widgets.QWidget_ITF) {}
-func (obj *GWidget) AddContent(text string) {}
+func (obj *GWidget) AddPage(widget widgets.QWidget_ITF, key string, defaultId int) {}
+func (obj *GWidget) AddContent(text string, key string) {}
 func (obj *GWidget) SetContent(text string) {}
 func (obj *GWidget) ClearContent() {}
 //===============================================
