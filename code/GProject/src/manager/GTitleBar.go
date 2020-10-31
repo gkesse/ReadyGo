@@ -55,6 +55,8 @@ func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
     lMainLayout.AddWidget(lMinimize, 0, 0)
     lMainLayout.AddWidget(lMaximize, 0, 0)
     lMainLayout.AddWidget(lClose, 0, 0)
+    lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
+    lMainLayout.SetSpacing(5)
     
     lParent.SetLayout(lMainLayout)
     

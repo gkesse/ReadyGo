@@ -34,6 +34,8 @@ func NewGHome(parent widgets.QWidget_ITF) *GHome {
     
     lMainLayout := widgets.NewQVBoxLayout()
     lMainLayout.AddWidget(lListBox, 1, 0)
+    lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
+    lMainLayout.SetSpacing(5)
     
     lParent.SetLayout(lMainLayout)
         
