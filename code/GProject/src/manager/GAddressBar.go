@@ -42,6 +42,8 @@ func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
     lMainLayout.AddWidget(lIcon, 0, 0)
     lMainLayout.AddWidget(lAddress, 1, 0)
     lMainLayout.AddWidget(lGoTo, 0, 0)
+    lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
+    lMainLayout.SetSpacing(5)
     
     lParent.SetLayout(lMainLayout)
     

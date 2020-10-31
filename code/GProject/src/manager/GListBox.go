@@ -32,10 +32,14 @@ func NewGListBox(parent widgets.QWidget_ITF) *GListBox {
     
     lContentLayout := widgets.NewQVBoxLayout()
     lObj.contentLayout = lContentLayout
-    
+    lContentLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
+    lContentLayout.SetSpacing(5)
+
     lMainLayout := widgets.NewQVBoxLayout()
     lMainLayout.AddLayout(lContentLayout, 0)
     lMainLayout.AddStretch(1)
+    lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
+    lMainLayout.SetSpacing(0)
     
     lParent.SetLayout(lMainLayout)
         

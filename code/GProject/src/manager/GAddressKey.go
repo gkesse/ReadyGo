@@ -34,6 +34,8 @@ func NewGAddressKey(parent widgets.QWidget_ITF) *GAddressKey {
         
     lMainLayout := widgets.NewQHBoxLayout()
     lObj.mainLayout = lMainLayout
+    lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
+    lMainLayout.SetSpacing(5)
     
     lParent.SetLayout(lMainLayout)
     
