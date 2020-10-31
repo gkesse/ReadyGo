@@ -7,6 +7,7 @@ import "github.com/therecipe/qt/widgets"
 //===============================================
 type GAddressBar struct {
     GWidget
+    address *widgets.QLineEdit
 }
 //===============================================
 type GAddressBar_ITF interface {
@@ -21,6 +22,8 @@ func (obj *GAddressBar) GAddressBar_PTR() *GAddressBar {
 // constructor
 //===============================================
 func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
+    lQt := GManager().mgr.qt
+    
     lObj := &GAddressBar{}
     
     lParent := *NewGWidget(parent)
@@ -32,11 +35,13 @@ func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
     lIcon.SetText("icon")
     
     lAddress := widgets.NewQLineEdit(nil)
+    lObj.address = lAddress
+    lQt.address_edit = lAddress
     lAddress.SetObjectName("address")
     
     lGoTo := widgets.NewQPushButton(nil)
-    lGoTo.SetObjectName("icon")
-    lGoTo.SetText("icon")
+    lGoTo.SetObjectName("goto")
+    lGoTo.SetText("goto")
 
     lMainLayout := widgets.NewQHBoxLayout()
     lMainLayout.AddWidget(lIcon, 0, 0)
@@ -47,8 +52,20 @@ func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
     
     lParent.SetLayout(lMainLayout)
     
+    lAddress.ConnectReturnPressed(lObj.SlotItemClick)
+    lGoTo.ConnectClicked(lObj.SlotItemClicked)
+    
     return lObj
 }
 //===============================================
-// methods
+// slots
+//===============================================
+func (obj *GAddressBar) SlotItemClick() {
+    lAddress := obj.address.Text()
+    GManager().SetPage(lAddress)
+}
+//===============================================
+func (obj *GAddressBar) SlotItemClicked(ok bool) {
+    obj.SlotItemClick()
+}
 //===============================================

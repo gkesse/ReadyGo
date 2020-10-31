@@ -5,41 +5,49 @@ import "github.com/therecipe/qt/widgets"
 //===============================================
 // struct
 //===============================================
-type GHome struct {
+type GVScroll struct {
     GWidget
+    scrollLayout *widgets.QVBoxLayout
 }
 //===============================================
-type GHome_ITF interface {
+type GVScroll_ITF interface {
     GWidget_ITF
-    GHome_PTR() *GHome
+    GVScroll_PTR() *GVScroll
 }
 //===============================================
-func (obj *GHome) GHome_PTR() *GHome {
+func (obj *GVScroll) GVScroll_PTR() *GVScroll {
     return obj
 }
 //===============================================
 // constructor
 //===============================================
-func NewGHome(parent widgets.QWidget_ITF) *GHome {
-    lObj := &GHome{}
-
+func NewGVScroll(parent widgets.QWidget_ITF) *GVScroll {
+    lObj := &GVScroll{}
+    
     lParent := *NewGWidget(parent)
     lObj.GWidget = lParent
+    lParent.SetObjectName("GVScroll")
     
-    lListBox := CreateGWidget("listbox", nil)
-    lListBox.AddContent("Qt", "home/qt")
-    lListBox.AddContent("SQLite", "home/sqlite")
-    lListBox.AddContent("MongoDB", "home/mongodb")
-    lListBox.AddContent("OpenCV", "home/opencv")
-    lListBox.AddContent("Builder", "home/builder")
+    lScrollLayout := widgets.NewQVBoxLayout()
+    lObj.scrollLayout = lScrollLayout
+    
+    lScrollWidget := widgets.NewQWidget(nil, 0)
+    lScrollWidget.SetLayout(lScrollLayout)
+    
+    lScrollArea := widgets.NewQScrollArea(nil)
+    lScrollArea.SetWidget(lScrollWidget)
     
     lMainLayout := widgets.NewQVBoxLayout()
-    lMainLayout.AddWidget(lListBox, 1, 0)
+    lMainLayout.AddWidget(lScrollArea, 0, 0)
     lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
-    lMainLayout.SetSpacing(5)
+    lMainLayout.SetSpacing(0)
     
     lParent.SetLayout(lMainLayout)
-        
+    
     return lObj
+}
+//===============================================
+func (obj *GVScroll) AddScroll(widget widgets.QWidget_ITF) {
+    obj.scrollLayout.AddWidget(widget, 0, 0)
 }
 //===============================================

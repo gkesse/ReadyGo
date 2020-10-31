@@ -22,10 +22,14 @@ type sGApp struct {
 }
 //===============================================
 type sGQt struct {
+    // page
     page_map *widgets.QStackedWidget
     page_id map[string]int
     current_page string
+    // address
     address_key GWidget_ITF
+    address_edit *widgets.QLineEdit
+    // title
     title_id *widgets.QLabel
     title_map map[string]string
 }
@@ -121,15 +125,23 @@ func (obj *GManagerO) GetSender(widgetId map[widgets.QWidget_ITF]string) widgets
 // qt_page
 //===============================================
 func (obj *GManagerO) SetPage(pageId string) {
-    if pageId == "" {return}
+    if pageId == "" {obj.SetAddress() ; return}
     lPageId,lOk := obj.mgr.qt.page_id[pageId]
-    if lOk == false {return}
-    if pageId == obj.mgr.qt.current_page {return}
+    if lOk == false {obj.SetAddress() ; return}
+    if pageId == obj.mgr.qt.current_page {obj.SetAddress() ; return}
     lTitle,lOk := obj.mgr.qt.title_map[pageId]
     if lOk == false {lTitle = ""}
     obj.mgr.qt.page_map.SetCurrentIndex(lPageId)
     obj.mgr.qt.address_key.SetContent(pageId)
     obj.mgr.qt.current_page = pageId
     obj.mgr.qt.title_id.SetText(lTitle)
+    obj.mgr.qt.address_edit.SetText(pageId)
+}
+//===============================================
+// qt_address
+//===============================================
+func (obj *GManagerO) SetAddress() {
+    lAddress := obj.mgr.qt.current_page
+    obj.mgr.qt.address_edit.SetText(lAddress)
 }
 //===============================================

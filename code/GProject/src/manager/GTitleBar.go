@@ -15,17 +15,20 @@ type GTitleBar_ITF interface {
     GTitleBar_PTR() *GTitleBar
 }
 //===============================================
-// constructor
-//===============================================
 func (obj *GTitleBar) GTitleBar_PTR() *GTitleBar {
     return obj
 }
 //===============================================
+// constructor
+//===============================================
 func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
+    lObj := &GTitleBar{}
+    
     lApp := GManager().mgr.app
     lQt := GManager().mgr.qt
     
     lParent := *NewGWidget(parent)
+    lObj.GWidget = lParent
     lParent.SetObjectName("GTitleBar")
     
     lLogo := widgets.NewQPushButton(nil)
@@ -64,8 +67,6 @@ func NewGTitleBar(parent widgets.QWidget_ITF) *GTitleBar {
     
     lParent.SetLayout(lMainLayout)
     
-    return &GTitleBar {lParent}
+    return lObj
 }
-//===============================================
-// methods
 //===============================================

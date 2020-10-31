@@ -18,11 +18,17 @@ type GWidget_ITF interface {
 }
 //===============================================
 type GWidgetI interface {
+    // methods
     AddPage(widget widgets.QWidget_ITF, key string, title string, defaultId int)
     AddContent(key string, text string)
+    AddBuilder(key string)
+    AddScroll(widget widgets.QWidget_ITF)
     SetContent(text string)
     ClearContent()
+    // slots
+    SlotItemClick()
     SlotItemClicked(ok bool)
+    SlotTextChanged(text string)
 }
 //===============================================
 // constructor
@@ -32,8 +38,12 @@ func (obj *GWidget) GWidget_PTR() *GWidget {
 }
 //===============================================
 func NewGWidget(parent widgets.QWidget_ITF) *GWidget {
+    lObj := &GWidget{}
+    
     lParent := *widgets.NewQFrame(parent, 0)
-    return &GWidget {lParent}
+    lObj.QFrame = lParent
+    
+    return lObj
 }
 //===============================================
 func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
@@ -43,9 +53,13 @@ func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
     if key == "titlebar" {return NewGTitleBar(parent)}
     if key == "addressbar" {return NewGAddressBar(parent)}
     if key == "addresskey" {return NewGAddressKey(parent)}
+    if key == "databaseview" {return NewGDatabaseView(parent)}
+    if key == "hscroll" {return NewGHScroll(parent)}
+    if key == "vscroll" {return NewGVScroll(parent)}
     // window
     if key == "window" {return NewGWindow(parent)}
     if key == "home" {return NewGHome(parent)}
+    if key == "builder" {return NewGBuilder(parent)}
     //
     return NewGWidget(parent)
 }
@@ -54,8 +68,14 @@ func CreateGWidget(key string, parent widgets.QWidget_ITF) GWidget_ITF {
 //===============================================
 func (obj *GWidget) AddPage(widget widgets.QWidget_ITF, key string, title string, defaultId int) {}
 func (obj *GWidget) AddContent(text string, key string) {}
+func (obj *GWidget) AddBuilder(key string) {}
+func (obj *GWidget) AddScroll(widget widgets.QWidget_ITF) {}
 func (obj *GWidget) SetContent(text string) {}
 func (obj *GWidget) ClearContent() {}
 //===============================================
+// slots
+//===============================================
+func (obj *GWidget) SlotItemClick() {}
 func (obj *GWidget) SlotItemClicked(ok bool) {}
+func (obj *GWidget) SlotTextChanged(text string) {}
 //===============================================

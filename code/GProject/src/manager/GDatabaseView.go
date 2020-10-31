@@ -5,41 +5,38 @@ import "github.com/therecipe/qt/widgets"
 //===============================================
 // struct
 //===============================================
-type GHome struct {
+type GDatabaseView struct {
     GWidget
 }
 //===============================================
-type GHome_ITF interface {
+type GDatabaseView_ITF interface {
     GWidget_ITF
-    GHome_PTR() *GHome
+    GDatabaseView_PTR() *GDatabaseView
 }
 //===============================================
-func (obj *GHome) GHome_PTR() *GHome {
+func (obj *GDatabaseView) GDatabaseView_PTR() *GDatabaseView {
     return obj
 }
 //===============================================
 // constructor
 //===============================================
-func NewGHome(parent widgets.QWidget_ITF) *GHome {
-    lObj := &GHome{}
-
+func NewGDatabaseView(parent widgets.QWidget_ITF) *GDatabaseView {   
+    lObj := &GDatabaseView{}
+    
     lParent := *NewGWidget(parent)
     lObj.GWidget = lParent
+    lParent.SetObjectName("GDatabaseView")
     
-    lListBox := CreateGWidget("listbox", nil)
-    lListBox.AddContent("Qt", "home/qt")
-    lListBox.AddContent("SQLite", "home/sqlite")
-    lListBox.AddContent("MongoDB", "home/mongodb")
-    lListBox.AddContent("OpenCV", "home/opencv")
-    lListBox.AddContent("Builder", "home/builder")
+    lWorkspace := widgets.NewQLabel(nil, 0)
+    lWorkspace.SetText("GDatabaseView")
     
-    lMainLayout := widgets.NewQVBoxLayout()
-    lMainLayout.AddWidget(lListBox, 1, 0)
+    lMainLayout := widgets.NewQHBoxLayout()
+    lMainLayout.AddWidget(lWorkspace, 0, 0)
     lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
     lMainLayout.SetSpacing(5)
     
     lParent.SetLayout(lMainLayout)
-        
+
     return lObj
 }
 //===============================================
