@@ -4,6 +4,7 @@ package manager
 import "fmt"
 import "sync"
 import "github.com/therecipe/qt/widgets"
+import "github.com/therecipe/qt/core"
 //===============================================
 // struct
 //===============================================
@@ -143,5 +144,14 @@ func (obj *GManagerO) SetPage(pageId string) {
 func (obj *GManagerO) SetAddress() {
     lAddress := obj.mgr.qt.current_page
     obj.mgr.qt.address_edit.SetText(lAddress)
+}
+//===============================================
+// qt_app
+//===============================================
+func (obj *GManagerO) SetStyle(app *widgets.QApplication, file string) {
+    lFile := core.NewQFile2(file)
+    lFile.Open(core.QIODevice__ReadOnly)
+    lStyle := lFile.ReadAll().Data()
+    app.SetStyleSheet(lStyle)
 }
 //===============================================

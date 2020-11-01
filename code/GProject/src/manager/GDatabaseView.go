@@ -27,7 +27,7 @@ func NewGDatabaseView(parent widgets.QWidget_ITF) *GDatabaseView {
     lObj.GWidget = lParent
     lParent.SetObjectName("GDatabaseView")
     
-    lOpen := widgets.NewQPushButton(nil, 0)
+    lOpen := widgets.NewQPushButton(nil)
     lOpen.SetText("Open")
         
     lHeaderLayout := widgets.NewQHBoxLayout()

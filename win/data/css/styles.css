@@ -1,0 +1,20 @@
+/*===============================================*/
+/* commun */
+/*===============================================*/
+/* QWidget */
+QWidget, QWidget * {
+    background-color: #201010;
+    font-family: "Arial";
+    font-size: 16px;
+    color: white;
+    border: none;
+    outline: none
+}
+/*===============================================*/
+/* custom */
+/*===============================================*/
+/* GTitleBar */
+QFrame#GTitleBar * {
+    background-color: transparent;    
+}
+/*===============================================*/

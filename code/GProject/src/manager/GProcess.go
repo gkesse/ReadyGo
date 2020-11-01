@@ -41,6 +41,7 @@ func (obj *GProcessO) Run() {
 func (obj *GProcessO) test() {
     fmt.Printf("\n### GO_TEST\n\n")
     lApp := widgets.NewQApplication(len(os.Args), os.Args)
+    GManager().SetStyle(lApp, "data/css/styles.css")
     lWindow := CreateGWidget("window", nil)
     lWindow.GWidget_PTR().Show()
     lApp.Exec()

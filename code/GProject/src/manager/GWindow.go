@@ -40,7 +40,7 @@ func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
     lObj.AddPage(CreateGWidget("qt", nil), "home/qt", "Qt", 0)
     lObj.AddPage(CreateGWidget("sqlite", nil), "home/sqlite", "SQLite", 0)
     lObj.AddPage(CreateGWidget("opencv", nil), "home/opencv", "OpenCV", 0)
-    lObj.AddPage(CreateGWidget("builder", nil), "home/builder", "Builder", 0)
+    lObj.AddPage(CreateGWidget("builder", nil), "home/builder", "Builder", 1)
     
     lMainLayout := widgets.NewQVBoxLayout()
     lMainLayout.AddWidget(lTitleBar, 0, 0)
