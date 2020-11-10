@@ -86,7 +86,7 @@ func (obj *GProcessUiO) run_QT() {
 }
 //===============================================
 func (obj *GProcessUiO) run_SAVE() {
-    obj.G_STATE = "S_QUIT"
+    obj.G_STATE = "S_END"
 }
 //===============================================
 func (obj *GProcessUiO) run_LOAD() {

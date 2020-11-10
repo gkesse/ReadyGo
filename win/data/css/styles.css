@@ -18,3 +18,13 @@ QFrame#GTitleBar * {
     background-color: transparent;    
 }
 /*===============================================*/
+/* GAddressBar */
+QFrame#GAddressBar * {
+    background-color: transparent;    
+}
+QFrame#GAddressBar QLineEdit#address {
+    background-color: #403030;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+/*===============================================*/
