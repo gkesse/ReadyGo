@@ -30,8 +30,9 @@ func GQt() *GQtO {
 //===============================================
 func (obj *GQtO) Open() {
     lApp := widgets.NewQApplication(len(os.Args), os.Args)
-    lWindow := widgets.NewQFrame(nil, 0)
-    lWindow.Show()
+    GManager().SetStyle(lApp, "data/css/styles.css")
+    lWindow := CreateGWidget("window", nil)
+    lWindow.GWidget_PTR().Show()
     lApp.Exec()
 }
 //===============================================

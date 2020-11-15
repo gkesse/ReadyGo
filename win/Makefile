@@ -4,18 +4,13 @@ GBUILD = build
 GTARGET = $(GBIN)\gp_go.exe
 
 all: clean compile run
-test: clean compile run_test
 
 compile:
 	@if not exist $(GBIN) ( @mkdir $(GBIN) )
 	go build -o $(GTARGET) $(GSRC)
 run: 
 	@echo.
-	@$(GTARGET)
-	@echo.
-run_test: 
-	@echo.
-	@$(GTARGET) test
+	@$(GTARGET) $(args)
 	@echo.
 clean: 
 	@if not exist $(GBIN) ( @mkdir $(GBIN) )

@@ -4,8 +4,8 @@
 /* QWidget */
 QWidget, QWidget * {
     background-color: #201010;
-    font-family: "Arial";
-    font-size: 16px;
+    font-family: "Allan";
+    font-size: 20px;
     color: white;
     border: none;
     outline: none
@@ -17,6 +17,23 @@ QWidget, QWidget * {
 QFrame#GTitleBar * {
     background-color: transparent;    
 }
+QFrame#GTitleBar QLabel#app_name {
+    font-family: "Akronim";
+    font-size: 40px;
+}
+QFrame#GTitleBar QLabel#title {
+    padding: 0px 20px;
+}
+QFrame#GTitleBar QPushButton#minimize:hover,
+QFrame#GTitleBar QPushButton#maximize:hover,
+QFrame#GTitleBar QPushButton#close:hover {
+    background-color: #403030;
+}
+QFrame#GTitleBar QPushButton#minimize:pressed,
+QFrame#GTitleBar QPushButton#maximize:pressed,
+QFrame#GTitleBar QPushButton#close:pressed {
+    background-color: transparent;
+}
 /*===============================================*/
 /* GAddressBar */
 QFrame#GAddressBar * {
@@ -25,6 +42,6 @@ QFrame#GAddressBar * {
 QFrame#GAddressBar QLineEdit#address {
     background-color: #403030;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 2px 10px;
 }
 /*===============================================*/

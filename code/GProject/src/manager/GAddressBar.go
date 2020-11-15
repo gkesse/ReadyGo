@@ -2,6 +2,8 @@
 package manager
 //===============================================
 import "github.com/therecipe/qt/widgets"
+import "github.com/therecipe/qt/gui"
+import "github.com/therecipe/qt/core"
 //===============================================
 // struct
 //===============================================
@@ -22,6 +24,9 @@ func (obj *GAddressBar) GAddressBar_PTR() *GAddressBar {
 // constructor
 //===============================================
 func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
+    lApp := GManager().mgr.app
+    lSize := GManager().mgr.size
+
     lQt := GManager().mgr.qt
     
     lObj := &GAddressBar{}
@@ -32,7 +37,9 @@ func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
     
     lIcon := widgets.NewQPushButton(nil)
     lIcon.SetObjectName("icon")
-    lIcon.SetText("icon")
+    lIcon.SetIcon(gui.NewQIcon5(lApp.icon_map["home"]));
+    lIcon.SetIconSize(core.NewQSize2(lSize.icon, lSize.icon));
+    lIcon.SetCursor(gui.NewQCursor2(core.Qt__PointingHandCursor))
     
     lAddress := widgets.NewQLineEdit(nil)
     lObj.address = lAddress
@@ -41,7 +48,9 @@ func NewGAddressBar(parent widgets.QWidget_ITF) *GAddressBar {
     
     lGoTo := widgets.NewQPushButton(nil)
     lGoTo.SetObjectName("goto")
-    lGoTo.SetText("goto")
+    lGoTo.SetIcon(gui.NewQIcon5(lApp.icon_map["paper-plane-o"]));
+    lGoTo.SetIconSize(core.NewQSize2(lSize.icon, lSize.icon));
+    lGoTo.SetCursor(gui.NewQCursor2(core.Qt__PointingHandCursor))
 
     lMainLayout := widgets.NewQHBoxLayout()
     lMainLayout.AddWidget(lIcon, 0, 0)

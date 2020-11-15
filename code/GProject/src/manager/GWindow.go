@@ -48,7 +48,7 @@ func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
     lMainLayout.AddWidget(lAddressKey, 0, 0)
     lMainLayout.AddWidget(lWorkspace, 1, 0)
     lMainLayout.QLayout_PTR().SetContentsMargins(10, 10, 10, 10)
-    lMainLayout.SetSpacing(5)
+    lMainLayout.SetSpacing(10)
 
     lParent.SetLayout(lMainLayout)
         

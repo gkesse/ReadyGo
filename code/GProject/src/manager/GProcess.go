@@ -4,7 +4,6 @@ package manager
 import "fmt"
 import "sync"
 import "os"
-import "github.com/therecipe/qt/widgets"
 //===============================================
 type GProcessO struct {
     
@@ -35,19 +34,19 @@ func (obj *GProcessO) Run() {
     if lArgc > 1 { lKey = os.Args[1] }
     if lKey == "ui" { obj.ui() ; return }
     if lKey == "test" { obj.test() ; return }
+    if lKey == "gui" { obj.gui() ; return }
     obj.ui()
 }
 //===============================================
 func (obj *GProcessO) test() {
     fmt.Printf("\n### GO_TEST\n\n")
-    lApp := widgets.NewQApplication(len(os.Args), os.Args)
-    GManager().SetStyle(lApp, "data/css/styles.css")
-    lWindow := CreateGWidget("window", nil)
-    lWindow.GWidget_PTR().Show()
-    lApp.Exec()
 }
 //===============================================
 func (obj *GProcessO) ui() {
     GProcessUi().Run()
+}
+//===============================================
+func (obj *GProcessO) gui() {
+    GQt().Open()
 }
 //===============================================

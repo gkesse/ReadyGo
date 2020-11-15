@@ -3,8 +3,12 @@ package manager
 //===============================================
 import "fmt"
 import "sync"
+import "path"
+import "path/filepath"
+import "io/ioutil"
 import "github.com/therecipe/qt/widgets"
 import "github.com/therecipe/qt/core"
+import "github.com/therecipe/qt/gui"
 //===============================================
 // struct
 //===============================================
@@ -15,11 +19,15 @@ type GManagerO struct {
 type sGManager struct {
     app *sGApp
     qt *sGQt
+    size *sGSize
     sqlite *sGSQLite
 }
 //===============================================
 type sGApp struct {
     app_name string
+    font_path string
+    icon_path string
+    icon_map map[string]string
 }
 //===============================================
 type sGQt struct {
@@ -35,6 +43,11 @@ type sGQt struct {
     title_map map[string]string
 }
 //===============================================
+type sGSize struct {
+    logo int
+    icon int
+}
+//===============================================
 type sGSQLite struct {
     db_path string
 }
@@ -47,6 +60,8 @@ var m_GManagerO *GManagerO
 func newGManager() *GManagerO {
     lObj := &GManagerO{}
     lObj.initObj();
+    lObj.loadIconObj();
+    lObj.loadFontObj();
     return lObj
 }
 //===============================================
@@ -63,24 +78,57 @@ func GManager() *GManagerO {
 //===============================================
 // obj
 //===============================================
+func (obj *GManagerO) GetData() *sGManager {
+    return obj.mgr
+}
+//===============================================
 func (obj *GManagerO) initObj() {
     // manager
     obj.mgr = &sGManager{}
     // app
+    obj.mgr.app = &sGApp{}
+    obj.mgr.app.app_name = "ReadyApp"
+    obj.mgr.app.font_path = "data/font"
+    obj.mgr.app.icon_path = "data/img/fa/white/64"
+    obj.mgr.app.icon_map = make(map[string]string)
+    // qt
     obj.mgr.qt = &sGQt{}
     obj.mgr.qt.page_id = make(map[string]int)
     obj.mgr.qt.title_map = make(map[string]string)
     obj.mgr.qt.current_page = ""
-    // app
-    obj.mgr.app = &sGApp{}
-    obj.mgr.app.app_name = "ReadyApp"
+    // size
+    obj.mgr.size = &sGSize{}
+    obj.mgr.size.logo = 40
+    obj.mgr.size.icon = 20
     // sqlite
     obj.mgr.sqlite = &sGSQLite{}
     obj.mgr.sqlite.db_path = "C:\\Users\\Admin\\Downloads\\Programs\\ReadyBin\\win\\.CONFIG_O.dat"
 }
 //===============================================
-func (obj *GManagerO) GetData() *sGManager {
-    return obj.mgr
+func (obj *GManagerO) loadIconObj() {
+    lPath := obj.mgr.app.icon_path
+    lDir, _ := ioutil.ReadDir(lPath)
+    for _, lFile := range lDir {
+        if lFile.IsDir() == false {
+            lFilename := lFile.Name()
+            lFullname := lPath + "/" + lFilename
+            lKey := obj.Basename(lFilename)
+            obj.mgr.app.icon_map[lKey] = lFullname
+        }
+    }
+}
+//===============================================
+func (obj *GManagerO) loadFontObj() {
+    lPath := obj.mgr.app.font_path
+    lDir, _ := ioutil.ReadDir(lPath)
+    for _, lFile := range lDir {
+        if lFile.IsDir() == false {
+            lFilename := lFile.Name()
+            lFullname := lPath + "/" + lFilename
+            lFont := gui.NewQFontDatabase()
+            lFont.AddApplicationFont(lFullname)
+        }
+    }
 }
 //===============================================
 // manager
@@ -98,6 +146,15 @@ func (obj *GManagerO) ClearMap(mapId map[widgets.QWidget_ITF]string) {
     for lItem := range mapId {
         delete(mapId, lItem)
     }
+}
+//===============================================
+// go_string
+//===============================================
+func (obj *GManagerO) Basename(pathId string) string {
+	lFilename := path.Base(pathId)
+    lExtension := filepath.Ext(lFilename)
+    lBasename := lFilename[0:len(lFilename)-len(lExtension)]
+	return lBasename
 }
 //===============================================
 // qt_layout
