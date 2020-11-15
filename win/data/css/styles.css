@@ -55,7 +55,7 @@ QFrame#GListBox {
 }
 QFrame#GListBox QPushButton#item {
     text-align: left;
-    padding: 0px 10px;
+    padding: 5px 10px;
 }
 QFrame#GListBox QPushButton#item:hover {
     background-color: #403030;
