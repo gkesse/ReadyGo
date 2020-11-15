@@ -2,6 +2,8 @@
 package manager
 //===============================================
 import "github.com/therecipe/qt/widgets"
+import "github.com/therecipe/qt/core"
+import "github.com/therecipe/qt/gui"
 //===============================================
 // struct
 //===============================================
@@ -27,7 +29,8 @@ func NewGListBox(parent widgets.QWidget_ITF) *GListBox {
 
     lParent := *NewGWidget(parent)
     lObj.GWidget = lParent
-    
+    lParent.SetObjectName("GListBox")
+
     lObj.widgetId = make(map[widgets.QWidget_ITF]string)
     
     lContentLayout := widgets.NewQVBoxLayout()
@@ -49,8 +52,15 @@ func NewGListBox(parent widgets.QWidget_ITF) *GListBox {
 // methods
 //===============================================
 func (obj *GListBox) AddContent(text string, key string) {
+    lApp := GManager().mgr.app
+    lSize := GManager().mgr.size
+
     lButton := widgets.NewQPushButton(nil)
+    lButton.SetObjectName("item")
     lButton.SetText(text)
+    lButton.SetIcon(gui.NewQIcon5(lApp.icon_map["book"]));
+    lButton.SetIconSize(core.NewQSize2(lSize.icon, lSize.icon));
+    lButton.SetCursor(gui.NewQCursor2(core.Qt__PointingHandCursor))
     obj.contentLayout.AddWidget(lButton, 0, 0)
     obj.widgetId[lButton] = key
     lButton.ConnectClicked(obj.SlotItemClicked)

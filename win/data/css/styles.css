@@ -45,3 +45,19 @@ QFrame#GAddressBar QLineEdit#address {
     padding: 2px 10px;
 }
 /*===============================================*/
+/* GListBox */
+QFrame#GListBox * {
+    background-color: transparent;    
+}
+QFrame#GListBox {
+    border: 1px solid #ffffff;
+    padding: 10px;
+}
+QFrame#GListBox QPushButton#item {
+    text-align: left;
+    padding: 0px 10px;
+}
+QFrame#GListBox QPushButton#item:hover {
+    background-color: #403030;
+}
+/*===============================================*/

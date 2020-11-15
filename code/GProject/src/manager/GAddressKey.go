@@ -64,6 +64,8 @@ func (obj *GAddressKey) SetContent(text string) {
         
         lButton := widgets.NewQPushButton(nil)
         lButton.SetText(lText)
+        lButton.SetCursor(gui.NewQCursor2(core.Qt__PointingHandCursor))
+
         obj.mainLayout.AddWidget(lButton, 0, 0)
         
         if i != 0 {lKey += "/"}
