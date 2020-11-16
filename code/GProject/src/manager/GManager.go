@@ -28,9 +28,12 @@ type sGApp struct {
     font_path string
     icon_path string
     icon_map map[string]string
+    style_path string
 }
 //===============================================
 type sGQt struct {
+    // window
+    win *GWindow
     // page
     page_map *widgets.QStackedWidget
     page_id map[string]int
@@ -91,6 +94,7 @@ func (obj *GManagerO) initObj() {
     obj.mgr.app.font_path = "data/font"
     obj.mgr.app.icon_path = "data/img/fa/white/64"
     obj.mgr.app.icon_map = make(map[string]string)
+    obj.mgr.app.style_path = "data/css/style.css"
     // qt
     obj.mgr.qt = &sGQt{}
     obj.mgr.qt.page_id = make(map[string]int)
@@ -102,7 +106,7 @@ func (obj *GManagerO) initObj() {
     obj.mgr.size.icon = 20
     // sqlite
     obj.mgr.sqlite = &sGSQLite{}
-    obj.mgr.sqlite.db_path = "C:\\Users\\Admin\\Downloads\\Programs\\ReadyBin\\win\\.CONFIG_O.dat"
+    obj.mgr.sqlite.db_path = "C:/Users/Admin/Downloads/Programs/ReadyBin/win/.CONFIG_O.dat"
 }
 //===============================================
 func (obj *GManagerO) loadIconObj() {
@@ -203,10 +207,10 @@ func (obj *GManagerO) SetAddress() {
     obj.mgr.qt.address_edit.SetText(lAddress)
 }
 //===============================================
-// qt_app
+// qt_style
 //===============================================
-func (obj *GManagerO) SetStyle(app *widgets.QApplication, file string) {
-    lFile := core.NewQFile2(file)
+func (obj *GManagerO) SetStyle(app *widgets.QApplication) {
+    lFile := core.NewQFile2(obj.mgr.app.style_path)
     lFile.Open(core.QIODevice__ReadOnly)
     lStyle := lFile.ReadAll().Data()
     app.SetStyleSheet(lStyle)

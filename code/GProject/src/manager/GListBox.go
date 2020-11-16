@@ -72,5 +72,6 @@ func (obj *GListBox) SlotItemClicked(ok bool) {
     lWidget := GManager().GetSender(obj.widgetId)
     lWidgetId := obj.widgetId[lWidget]
     GManager().SetPage(lWidgetId)
+    obj.Connect
 }
 //===============================================

@@ -7,6 +7,7 @@ import "github.com/therecipe/qt/widgets"
 //===============================================
 type GDatabaseView struct {
     GWidget
+    workspace GWidget_ITF
 }
 //===============================================
 type GDatabaseView_ITF interface {
@@ -29,7 +30,10 @@ func NewGDatabaseView(parent widgets.QWidget_ITF) *GDatabaseView {
     
     lOpen := widgets.NewQPushButton(nil)
     lOpen.SetText("Open")
-        
+    
+    lWorkspace := CreateGWidget("listbox", nil)
+    lObj.workspace = lWorkspace
+    
     lHeaderLayout := widgets.NewQHBoxLayout()
     lHeaderLayout.AddWidget(lOpen, 0, 0)
     lHeaderLayout.AddStretch(1)
@@ -38,12 +42,29 @@ func NewGDatabaseView(parent widgets.QWidget_ITF) *GDatabaseView {
     
     lMainLayout := widgets.NewQVBoxLayout()
     lMainLayout.AddLayout(lHeaderLayout, 0)
-    lHeaderLayout.AddStretch(1)
+    lMainLayout.AddWidget(lWorkspace, 0, 0)
+    lMainLayout.AddStretch(1)
     lMainLayout.QLayout_PTR().SetContentsMargins(0, 0, 0, 0)
     lMainLayout.SetSpacing(5)
     
     lParent.SetLayout(lMainLayout)
 
+    lObj.loadTables()
+
     return lObj
+}
+//===============================================
+// private
+//===============================================
+func (obj *GDatabaseView) loadTables() {
+    lQuery := `
+    select name from sqlite_master 
+    where type='table'
+    `
+    lTables := GSQLite().QueryCol(lQuery)
+    for i := 0; i < len(lTables); i++ {
+        lTable := lTables[i]
+        obj.workspace.AddContent(lTable, "table")
+    }
 }
 //===============================================

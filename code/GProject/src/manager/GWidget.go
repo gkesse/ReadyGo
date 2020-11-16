@@ -13,11 +13,7 @@ type GWidget struct {
 //===============================================
 type GWidget_ITF interface {
     widgets.QFrame_ITF
-    GWidgetI
     GWidget_PTR() *GWidget
-}
-//===============================================
-type GWidgetI interface {
     // methods
     AddPage(widget widgets.QWidget_ITF, key string, title string, defaultId int)
     AddContent(key string, text string)
@@ -29,6 +25,8 @@ type GWidgetI interface {
     SlotItemClick()
     SlotItemClicked(ok bool)
     SlotTextChanged(text string)
+    // signals
+    _ func() `signal:"EmitItemClick"`
 }
 //===============================================
 // constructor

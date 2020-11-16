@@ -2,6 +2,8 @@
 package manager
 //===============================================
 import "github.com/therecipe/qt/widgets"
+import "github.com/therecipe/qt/core"
+import "github.com/therecipe/qt/gui"
 //===============================================
 // struct
 //===============================================
@@ -18,7 +20,10 @@ func (obj *GWindow) GWindow_PTR() *GWindow {
     return obj
 }
 //===============================================
+// constructor
+//===============================================
 func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
+    lApp := GManager().mgr.app
     lQt := GManager().mgr.qt
     
     lObj := &GWindow {}
@@ -40,7 +45,7 @@ func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
     lObj.AddPage(CreateGWidget("qt", nil), "home/qt", "Qt", 0)
     lObj.AddPage(CreateGWidget("sqlite", nil), "home/sqlite", "SQLite", 0)
     lObj.AddPage(CreateGWidget("opencv", nil), "home/opencv", "OpenCV", 0)
-    lObj.AddPage(CreateGWidget("builder", nil), "home/builder", "Builder", 0)
+    lObj.AddPage(CreateGWidget("builder", nil), "home/builder", "Builder", 1)
     
     lMainLayout := widgets.NewQVBoxLayout()
     lMainLayout.AddWidget(lTitleBar, 0, 0)
@@ -51,7 +56,14 @@ func NewGWindow(parent widgets.QWidget_ITF) *GWindow {
     lMainLayout.SetSpacing(10)
 
     lParent.SetLayout(lMainLayout)
-        
+    
+    lParent.SetWindowTitle(lApp.app_name);
+    lParent.SetWindowIcon(gui.NewQIcon5(lApp.icon_map["wifi"]));
+    lParent.SetWindowFlags(core.Qt__Window | core.Qt__FramelessWindowHint)
+    lParent.Resize2(640, 480)
+    
+    lQt.win = lObj
+    
     return lObj
 }
 //===============================================
