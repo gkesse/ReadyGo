@@ -72,6 +72,6 @@ func (obj *GListBox) SlotItemClicked(ok bool) {
     lQt := GManager().mgr.qt 
     lWidget := GManager().GetSender(obj.widgetId)
     lQt.widget_id = obj.widgetId[lWidget]
-    obj.GoEmitItemClick()
+    //obj.EmitItemClick()
 }
 //===============================================
