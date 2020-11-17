@@ -19,5 +19,9 @@ sqlite:
 	go get github.com/mattn/go-sqlite3
 qt: 
 	go get github.com/therecipe/qt
+qt_module: 
+	go get -u -v -tags=no_env github.com/therecipe/qt/cmd/...
 qt_setup: 
-	go get -u -v github.com/therecipe/qt/cmd/qtsetup
+	$(GOPATH)\bin\qtsetup
+qt_env: 
+	$(GOPATH)\bin\qtenv

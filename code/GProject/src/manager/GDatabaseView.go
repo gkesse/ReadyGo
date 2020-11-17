@@ -1,6 +1,7 @@
 //===============================================
 package manager
 //===============================================
+import "fmt"
 import "github.com/therecipe/qt/widgets"
 //===============================================
 // struct
@@ -51,6 +52,8 @@ func NewGDatabaseView(parent widgets.QWidget_ITF) *GDatabaseView {
 
     lObj.loadTables()
 
+    //lWorkspace.ConnectEmitItemClick(lObj.SlotItemClick)
+
     return lObj
 }
 //===============================================
@@ -64,7 +67,14 @@ func (obj *GDatabaseView) loadTables() {
     lTables := GSQLite().QueryCol(lQuery)
     for i := 0; i < len(lTables); i++ {
         lTable := lTables[i]
-        obj.workspace.AddContent(lTable, "table")
+        obj.workspace.AddContent(lTable, lTable)
     }
+}
+//===============================================
+// slot
+//===============================================
+func (obj *GDatabaseView) SlotItemClick() {
+    lQt := GManager().mgr.qt
+    fmt.Printf("%s\n", lQt.widget_id)
 }
 //===============================================

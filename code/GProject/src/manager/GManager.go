@@ -44,6 +44,8 @@ type sGQt struct {
     // title
     title_id *widgets.QLabel
     title_map map[string]string
+    // signal
+    widget_id string
 }
 //===============================================
 type sGSize struct {

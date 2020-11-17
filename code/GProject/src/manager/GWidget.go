@@ -2,11 +2,15 @@
 package manager
 //===============================================
 import "github.com/therecipe/qt/widgets"
+import "github.com/therecipe/qt/core"
 //===============================================
 // struct
 //===============================================
 type GWidget struct {
+    core.QObject
     widgets.QFrame
+    // signals
+    _ func() `signal:"emitItemClick,auto"`
 }
 //===============================================
 // interface
@@ -26,7 +30,7 @@ type GWidget_ITF interface {
     SlotItemClicked(ok bool)
     SlotTextChanged(text string)
     // signals
-    _ func() `signal:"EmitItemClick"`
+    GoEmitItemClick()
 }
 //===============================================
 // constructor
@@ -76,4 +80,10 @@ func (obj *GWidget) ClearContent() {}
 func (obj *GWidget) SlotItemClick() {}
 func (obj *GWidget) SlotItemClicked(ok bool) {}
 func (obj *GWidget) SlotTextChanged(text string) {}
+//===============================================
+// signals
+//===============================================
+func (obj *GWidget) emitItemClick() {
+    go obj.EmitItemClick()
+}
 //===============================================

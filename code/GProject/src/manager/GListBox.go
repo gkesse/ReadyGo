@@ -69,9 +69,9 @@ func (obj *GListBox) AddContent(text string, key string) {
 // slot
 //===============================================
 func (obj *GListBox) SlotItemClicked(ok bool) {
+    lQt := GManager().mgr.qt 
     lWidget := GManager().GetSender(obj.widgetId)
-    lWidgetId := obj.widgetId[lWidget]
-    GManager().SetPage(lWidgetId)
-    obj.Connect
+    lQt.widget_id = obj.widgetId[lWidget]
+    obj.GoEmitItemClick()
 }
 //===============================================
